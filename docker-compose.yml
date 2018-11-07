@@ -1,0 +1,41 @@
+version: '2'
+
+networks:
+    tlgt:
+        external: true
+
+services:
+    php:
+        build: docker/php
+        working_dir: /var/www/app
+        networks:
+            tlgt:
+                aliases:
+                    - php
+            default:
+                aliases:
+                    - php.tlgt
+        volumes:
+            - .:/var/www/app
+            - ~/.composer:/var/www/.composer
+            - ~/.npm:/var/www/.npm
+            - ~/.npmrc:/var/www/.npmrc
+
+    web:
+        image: nginx:1-alpine
+        networks:
+            tlgt:
+                aliases:
+                    - web
+            default:
+                aliases:
+                    - web.tlgt
+        volumes:
+            - ./docker/nginx/app.conf:/etc/nginx/conf.d/default.conf:ro
+            - .:/var/www/app
+        expose:
+            - 80
+            - 8080
+            - 1612
+        depends_on:
+            - php
