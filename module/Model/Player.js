@@ -1,14 +1,31 @@
-var Player = function( socket ){
-	this.id = getId();
-	this.socketId = socket.id;
-}
+class Player {
 
+	constructor(socket)
+    {
+        let d = new Date();
+        this.id = Math.round( Math.random() * 100000 ) + d.getTime();
+        this.socketId = socket.id;
+    }
 
+    set type(type)
+    {
+        this.type = type;
+    }
 
+    get type()
+    {
+        return this._type
+    }
 
-function getId(){
-	var d = new Date();
-	return Math.round( Math.random() * 100000 ) + d.getTime();
+    set partner(partner)
+    {
+        this.partner = partner;
+    }
+
+    get partner()
+    {
+        return this._partner;
+    }
 }
 
 module.exports = Player;

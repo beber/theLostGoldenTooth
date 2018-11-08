@@ -9,8 +9,8 @@ module.exports = {
     },
     output: {
         pathinfo: true,
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: './dist/',
+        path: path.resolve(__dirname, 'public/dist'),
+        publicPath: './public/dist/',
         filename: 'bundle.js'
     },
     watch: true,

@@ -1,4 +1,4 @@
-var socket = io.connect('http://web.gt:8080/');
+var socket = io.connect('http://web.tlgt:8080/');
 
 socket.emit('init');
 

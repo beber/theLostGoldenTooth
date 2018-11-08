@@ -1,24 +1,30 @@
-var express = require('express');
-var app = new express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+let express = require('express');
+let es6Renderer = require('express-es6-template-engine');
+let app = new express();
+let server = require('http').Server(app);
+let io = require('socket.io')(server);
 server.listen(8080);
 
-var Players = require( __dirname + '/module/Core/Players');
-var Player = require( __dirname + '/module/Model/Player');
+let Players = require( __dirname + '/module/Core/Players');
+let Player = require( __dirname + '/module/Model/Player');
 
-var players = new Players();
+let players = new Players();
 
-var rooms = [];
-
+app.engine('html', es6Renderer);
+app.set('views', 'views');
+app.set('view engine', 'html');
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/views/index.html');
+	res.render('index');
+});
+
+app.get('/mobile', function (req, res) {
+    res.render('mobile', {locals: {code: req.query.code}});
 });
 
 io.on('connection', function (socket) {
-	var player = new Player( socket );
+	let player = new Player( socket );
 	players.addPlayer( player );	
 
 
@@ -34,7 +40,6 @@ io.on('connection', function (socket) {
 
 	loadEvents( socket );
 });
-
 
 function loadEvents( socket ){
 	
