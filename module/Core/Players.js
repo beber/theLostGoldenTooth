@@ -1,34 +1,42 @@
-var Players = function(){
-	
-	this.list = [];
-}
+class Players {
 
-Players.prototype.addPlayer = function( player ){
-	this.list.push( player );
-}
+    constructor()
+    {
+	    this.list = [];
+    }
 
-Players.prototype.removePlayer = function( player ){
-	for( var i in this.list ){
-		if( this.list[i].id == player.id ) {
-			this.list.splice(i,1);
-			break;
-		}
-	}
-}
+    addPlayer( player )
+    {
+        console.log("New player");
+        this.list.push( player );
+    }
 
-Players.prototype.updatePlayer = function( player ){
-	for( var i in this.list ){
-		if( this.list[i].id == player.id ) {
-			this.list[i] = player;
-			break;
-		}
-	}
-}
+    removePlayer( player )
+    {
+        for( let i in this.list ){
+            if( this.list[i].id == player.id ) {
+                this.list.splice(i,1);
+                break;
+            }
+        }
+    }
 
-Players.prototype.getPlayer = function( player ){
-	for( var i in this.list ){
-		if( this.list[i].id == player.id ) return this.list[i];
-	}
+    updatePlayer( player )
+    {
+        for( let i in this.list ){
+            if( this.list[i].id == player.id ) {
+                this.list[i] = player;
+                break;
+            }
+        }
+    }
+
+    getPlayer( player )
+    {
+        for( let i in this.list ){
+            if( this.list[i].id == player.id ) return this.list[i];
+        }
+    }
 }
 
 module.exports = Players;
