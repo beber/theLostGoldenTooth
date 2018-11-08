@@ -28,19 +28,50 @@ io.on('connection', function (socket) {
 	players.addPlayer( player );	
 
 
-	socket.on('init',function(){
-		
+	socket.on('init', function (data){
+		player.type = data.type;
+
+		if (data.code === undefined) {
+			let code = makeid(8);
+			player.code = code;
+
+			socket.emit('init', {code: code});
+		} else {
+			let partner = players.getPlayerFromCode(data.code);
+
+			if (null !== partner) {
+                player.partner = partner;
+                partner.partner = player;
+
+                player.socket.emit('sync', {player: player.id});
+                partner.socket.emit('sync', {player: partner.id});
+            }
+		}
 	});
+
+	socket.on('message', function (data) {
+	    player.partner.socket.emit('message', data);
+    });
 
 	socket.on('disconnect', function () {
-		player = players.getPlayer( player );
-		players.removePlayer( player );
-		socket.broadcast.emit('disconnect player', player );
+	    if (player.partner !== undefined) {
+            player.partner.socket.emit('leave');
+            player.partner.partner = undefined;
+        }
+
+        players.removePlayer(player);
+	    
+	    console.log(players);
 	});
 
-	loadEvents( socket );
 });
 
-function loadEvents( socket ){
-	
+function makeid(size) {
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (let i = 0; i < size; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }
