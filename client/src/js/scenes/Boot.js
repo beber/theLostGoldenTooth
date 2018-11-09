@@ -8,6 +8,10 @@ export default class extends Phaser.Scene {
     preload() {
         // Load all assets here
         this.load.atlas('wizard', 'assets/game/wizard/wizard.png', 'assets/game/wizard/wizard.json');
+        this.load.spritesheet('fairy',
+            'assets/game/fairy/fairy-tilesprite.png',
+            {frameWidth: 64, frameHeight: 64}
+        );
     }
 
     create() {

@@ -1,44 +1,28 @@
 import Phaser from 'phaser'
+import Wizard from '../entities/Wizard';
+import Fairy from '../entities/Fairy';
 
 export default class extends Phaser.Scene {
     constructor() {
         super({key: 'GameScene'});
-        this.animsLaunch = false;
+        this.wizard = null;
+        this.fairy = null;
     }
 
     preload() {
-
+        this.wizard = new Wizard(this);
+        this.fairy = new Fairy(this);
     }
 
     create() {
         // Create characters, map and others things
-        this.wizard = this.add.container(100, 100);
-        this.wizardTexture = this.add.sprite(25, 20, 'wizardTexture');
-        this.wizard.add(this.wizardTexture);
-        this.wizardTexture.setSize(100, 250);
-        this.physics.world.enable(this.wizard);
-        this.physics.add.collider(this.wizard, this.physics.world);
-        this.wizard.body.setCollideWorldBounds(true);
-        this.setAnimation();
-        this.wizardTexture.play('idle').setScale(.25);
+        this.wizard.create();
+        this.fairy.create();
     }
 
     update() {
 // Update characters, map and others things
     }
 
-    setAnimation() {
-        let frameNames = this.anims.generateFrameNames('wizard', {
-            prefix: '1_IDLE_',
-            suffix: '.png',
-            end: 4,
-            zeroPad: 3
-        });
-        this.anims.create({
-            key: 'idle',
-            frames: frameNames,
-            frameRate: 10,
-            repeat: -1
-        })
-    }
+
 }
