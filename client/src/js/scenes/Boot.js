@@ -7,6 +7,7 @@ export default class extends Phaser.Scene {
 
     preload() {
         // Load all assets here
+        this.load.atlas('wizard', 'assets/game/wizard/wizard.png', 'assets/game/wizard/wizard.json');
     }
 
     create() {
@@ -16,8 +17,8 @@ export default class extends Phaser.Scene {
             color: '#ffffff',
         });
         title.setOrigin(0.5);
-        setTimeout(() => {
-            this.scene.start('GameScene')
-        }, 2000)
+        // setTimeout(() => {
+        this.scene.start('GameScene')
+        // }, 2000)
     }
 }
