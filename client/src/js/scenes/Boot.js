@@ -9,7 +9,15 @@ export default class extends Phaser.Scene {
         // Load all assets here
     }
 
-    update() {
-        this.scene.start('GameScene')
+    create() {
+        let title = this.add.text(400, 300, 'The Lost Golden Tooth', {
+            fontSize: '60px',
+            fontFamily: 'Arial',
+            color: '#ffffff',
+        });
+        title.setOrigin(0.5);
+        setTimeout(() => {
+            this.scene.start('GameScene')
+        }, 2000)
     }
 }
