@@ -4,12 +4,12 @@ class Player {
     {
         let d = new Date();
         this.id = Math.round( Math.random() * 100000 ) + d.getTime();
-        this.socketId = socket.id;
+        this.socket = socket;
     }
 
     set type(type)
     {
-        this.type = type;
+        this._type = type;
     }
 
     get type()
@@ -19,12 +19,22 @@ class Player {
 
     set partner(partner)
     {
-        this.partner = partner;
+        this._partner = partner;
     }
 
     get partner()
     {
         return this._partner;
+    }
+
+    set code(code)
+    {
+        this._code = code;
+    }
+
+    get code()
+    {
+        return this._code;
     }
 }
 

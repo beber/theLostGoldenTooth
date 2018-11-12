@@ -7,7 +7,6 @@ class Players {
 
     addPlayer( player )
     {
-        console.log("New player");
         this.list.push( player );
     }
 
@@ -36,6 +35,15 @@ class Players {
         for( let i in this.list ){
             if( this.list[i].id == player.id ) return this.list[i];
         }
+    }
+
+    getPlayerFromCode( code )
+    {
+        for( let i in this.list ){
+            if( this.list[i].code == code && this.list[i].partner == undefined ) return this.list[i];
+        }
+
+        return null;
     }
 }
 

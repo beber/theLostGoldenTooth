@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Mobile</title>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/core/socket.js"></script>
-</head>
-<body>
-${code}
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mobile</title>
+    </head>
+    <body>
+
+        <script type="text/javascript">
+            var playerInformation = {
+                type: 'fairy',
+                code: '${code}'
+            };
+        </script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/core/socket.js"></script>
+    </body>
 </html>
