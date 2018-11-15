@@ -14,7 +14,8 @@ export default class LevelManager {
     loadLevel() {
         this.map = this.scene.add.tilemap('level' + this._levelNumber);
         this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'tiles', 70, 70, 0, 2);
-        this.yOffset = (this.map.tileHeight * this.map.height) * -1 + this.scene.game.config.height;
+        // this.yOffset = (this.map.tileHeight * this.map.height) * -1 + this.scene.game.config.height;
+        this.yOffset = 0;
         this.createBackground();
         this.createFloor();
         this.createPlatform();
@@ -29,6 +30,7 @@ export default class LevelManager {
 
     createFloor() {
         this.floor = this.map.createStaticLayer('Floor', this.tileset, 0, this.yOffset);
+        this.floor.setOrigin(0)
         this.floor.setCollisionByExclusion([-1, 0], true);
         this.scene.physics.add.collider(this.scene.wizard.entity, this.floor);
     }

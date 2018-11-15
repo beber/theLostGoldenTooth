@@ -2,7 +2,7 @@ export default class {
     constructor(data)
     {
         this.data = data;
-
+        this.callbacks = [];
         this.socket = io.connect('http://web.tlgt:8080/');
         this.socket.emit('init', data);
 
@@ -10,14 +10,19 @@ export default class {
             this.onInit(data);
         });
         this.socket.on('sync', (data) => {
-            this.onSync(data);
+            this.processCallback('sync', data);
         });
         this.socket.on('message', (data) => {
-            this.onMessage(data);
+            this.processCallback('message', data);
         });
         this.socket.on('leave', (data) => {
-            this.onDisconnect(data);
+            this.processCallback('leave', data);
         });
+    }
+
+    on(eventName, callback)
+    {
+        this.callbacks[eventName] = callback;
     }
 
     send(eventName, data)
@@ -30,24 +35,14 @@ export default class {
         if (data.code !== undefined) {
             document.getElementById('link').innerHTML = '<a target="_blank" href="http://web.tlgt:8080/mobile?code=' + data.code + '">go to mobile</a>';
         }
+
+        this.processCallback('init', data);
     }
 
-    onSync(data)
+    processCallback(eventName, data)
     {
-        console.log("your are sync with: " + data.player);
-
-        if ('mage' === this.data.type) {
-            this.socket.emit('message', {message: 'Bonjour, je suis le mage'});
+        if (undefined !== this.callbacks[eventName]) {
+            this.callbacks[eventName](data);
         }
-    }
-
-    onMessage(data)
-    {
-        console.log(data);
-    }
-
-    onDisconnect(data)
-    {
-        console.log("Your partner is disconnected");
     }
 }
