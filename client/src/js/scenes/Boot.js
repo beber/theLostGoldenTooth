@@ -12,6 +12,15 @@ export default class extends Phaser.Scene {
             'assets/game/fairy/fairy-tilesprite.png',
             {frameWidth: 64, frameHeight: 64}
         );
+
+        this.load.image('tiles', 'assets/game/levels/tiles_spritesheet.png');
+        // this.load.spritesheet('levelspritesheet', 'assets/game/levels/tiles_spritesheet.png', {
+        //     frameWidth: 70,
+        //     frameHeight: 70,
+        //     endFrame: 173
+        // });
+
+        this.load.tilemapTiledJSON('level1', 'assets/game/levels/level1.json');
     }
 
     create() {
