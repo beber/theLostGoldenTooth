@@ -58,6 +58,9 @@ export default class Wizard {
         } else {
             this.currentState = Wizard.STATE.idle;
         }
+        if (this.scene.cursors.up.isDown) {
+            this.currentState = Wizard.STATE.jumping;
+        }
     }
 
     _updatePhysics() {
@@ -66,6 +69,9 @@ export default class Wizard {
         }
         if (this.ISWALKINGRIGHT) {
             this.entity.body.setVelocityX(this.xVelocity);
+        }
+        if (this.ISJUMPING) {
+            this.entity.body.setVelocityY(-600)
         }
         if (this.ISIDLE) {
             this.entity.body.setVelocityX(0);
