@@ -7,8 +7,8 @@ export default class Wizard {
         this.health = 100;
         this.mana = 100;
         this.spawn = {
-            x: 110,
-            y: 400
+            x: 310,
+            y: 3150
         }
         this.currentState = Wizard.STATE.idle;
         this.direction = Wizard.DIRECTION.right;
@@ -58,7 +58,7 @@ export default class Wizard {
         } else {
             this.currentState = Wizard.STATE.idle;
         }
-        if (this.scene.cursors.up.isDown) {
+        if (this.scene.cursors.up.isDown && this.entity.body.onFloor()) {
             this.currentState = Wizard.STATE.jumping;
         }
     }
@@ -71,7 +71,7 @@ export default class Wizard {
             this.entity.body.setVelocityX(this.xVelocity);
         }
         if (this.ISJUMPING) {
-            this.entity.body.setVelocityY(-600)
+            this.entity.body.setVelocityY(-550)
         }
         if (this.ISIDLE) {
             this.entity.body.setVelocityX(0);
