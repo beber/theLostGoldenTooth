@@ -2,3 +2,24 @@ body {
   background-color: #444;
   color: #FFF;
 }
+
+.combo-input {
+  width:100px;
+  height:40px;
+  background-color: coral;
+  margin:5px;
+  display: inline-block;
+}
+
+.fire {
+  background-color: #ac4535;
+}
+.water {
+  background-color: #2638ac;
+}
+.stone {
+  background-color: #4f3532;
+}
+.wind {
+  background-color: #63a953;
+}

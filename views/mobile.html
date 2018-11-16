@@ -5,7 +5,25 @@
         <title>Mobile</title>
     </head>
     <body>
-
+        <div id="inputs">
+            <div id="element-inputs">
+                <div class="element-input" id="fire">Fire</div>
+                <div class="element-input" id="water">Water</div>
+                <div class="element-input" id="stone">Stone</div>
+                <div class="element-input" id="wind">Wind</div>
+            </div>
+            <div id="combo-system">
+                <div id="combo-container"></div>
+                <div id="combo-inputs">
+                    <div class="combo-input" id="left"><-</div>
+                    <div class="combo-input" id="right">-></div>
+                    <div class="combo-input" id="top">î</div>
+                    <div class="combo-input" id="bottom">y</div>
+                    <div class="combo-input" id="A">A</div>
+                    <div class="combo-input" id="B">B</div>
+                </div>
+            </div>
+        </div>
         <script type="text/javascript">
             var playerInformation = {
                 type: 'fairy',
@@ -13,6 +31,7 @@
             };
         </script>
         <script src="/socket.io/socket.io.js"></script>
-        <script src="js/core/socket.js"></script>
+        <script src="../dist/vendor.bundle.js"></script>
+        <script src="../dist/bundle.js"></script>
     </body>
 </html>
