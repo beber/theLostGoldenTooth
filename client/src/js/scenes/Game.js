@@ -35,6 +35,7 @@ export default class extends Phaser.Scene {
     update() {
         // Update characters, map and others things
         this.wizard.update();
+        this.fairy.update();
     }
 
     setControls() {
