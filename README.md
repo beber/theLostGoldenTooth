@@ -12,3 +12,4 @@ The lost golden tooth
 - https://www.hiddenone-sprites.com/
 - https://opengameart.org/content/spells-and-company
 - https://opengameart.org/content/fireball-spell
+- https://opengameart.org/content/hit-animation-frame-by-frame

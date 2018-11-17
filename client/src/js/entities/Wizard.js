@@ -14,7 +14,8 @@ export default class Wizard {
         this.direction = Wizard.DIRECTION.right;
         this.spellState = {
             fly: false,
-            fire: false
+            fire: false,
+            break: false
         }
         this.spell = null;
     }
@@ -88,6 +89,9 @@ export default class Wizard {
         this.scene.input.keyboard.on('keydown_TWO', function (event) {
             this.spellState.fire = true;
         }.bind(this));
+        this.scene.input.keyboard.on('keydown_THREE', function (event) {
+            this.spellState.break = true;
+        }.bind(this));
     }
 
     _updatePhysics() {
@@ -117,10 +121,20 @@ export default class Wizard {
             this.spellState.fly = false;
             this.fly();
         }
+        if (this.spellState.break) {
+            console.log('Break, tremblement de terre')
+            this.break();
+            this.spellState.break = false;
+        }
     }
 
     fly() {
         this.currentState = Wizard.STATE.flying;
+        this.createSpell('spell-fly', 'wizard-fly', 50);
+    }
+
+    break() {
+        this.currentState = Wizard.STATE.breaking;
         this.createSpell('spell-fly', 'wizard-fly', 50);
     }
 
@@ -149,7 +163,8 @@ export default class Wizard {
             walking: 1,
             jumping: 2,
             falling: 3,
-            flying: 4
+            flying: 4,
+            breaking: 5
         }
     }
 
@@ -178,6 +193,10 @@ export default class Wizard {
 
     get ISFLYING() {
         return this.currentState === Wizard.STATE.flying;
+    }
+
+    get ISBREAKING() {
+        return this.currentState === Wizard.STATE.breaking;
     }
 
     get ISRIGHT() {
