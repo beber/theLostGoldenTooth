@@ -12,6 +12,11 @@ export default class Wizard {
         }
         this.currentState = Wizard.STATE.idle;
         this.direction = Wizard.DIRECTION.right;
+        this.spellState = {
+            fly: false,
+            fire: false
+        }
+        this.spell = null;
     }
 
     create() {
@@ -22,11 +27,13 @@ export default class Wizard {
         this.scene.physics.world.enable(this.entity);
         this.scene.physics.add.collider(this.entity, this.scene.physics.world);
         this.entity.body.setCollideWorldBounds(true);
-        this.setAnimation();
+        this.setAnimationWizard();
+        this.setAnimationSpell();
+        this._listenInputsSpellsDev();
 
     }
 
-    setAnimation() {
+    setAnimationWizard() {
         let idleFrameNames = this.scene.anims.generateFrameNames('wizard', {
             prefix: '1_IDLE_',
             suffix: '.png',
@@ -41,26 +48,46 @@ export default class Wizard {
         })
     }
 
-    // Update function call in Scene update loop
-    update() {
-        this._listenInputs();
-        this._updatePhysics();
-        this._updateGraphics();
+    setAnimationSpell() {
+        this.scene.anims.create({
+            key: 'wizard-fly',
+            frames: this.scene.anims.generateFrameNumbers('spell-fly', {start: 0, end: 3}),
+            frameRate: 10,
+            repeat: -1
+        });
     }
 
-    _listenInputs() {
-        if (this.scene.cursors.left.isDown) {
+    // Update function call in Scene update loop
+    update() {
+        this._listenInputsMovement();
+        this._listenSpellState();
+        this._updatePhysics();
+        this._updateGraphics();
+        this._updateSpell();
+    }
+
+    _listenInputsMovement() {
+        if (this.scene.keys.left.isDown) {
             this.currentState = Wizard.STATE.walking;
             this.direction = Wizard.DIRECTION.left;
-        } else if (this.scene.cursors.right.isDown) {
+        } else if (this.scene.keys.right.isDown) {
             this.currentState = Wizard.STATE.walking;
             this.direction = Wizard.DIRECTION.right;
         } else {
             this.currentState = Wizard.STATE.idle;
         }
-        if (this.scene.cursors.up.isDown && this.entity.body.onFloor()) {
+        if (this.scene.keys.jump.isDown && this.entity.body.onFloor()) {
             this.currentState = Wizard.STATE.jumping;
         }
+    }
+
+    _listenInputsSpellsDev() {
+        this.scene.input.keyboard.on('keydown_ONE', function (event) {
+            this.spellState.fly = true;
+        }.bind(this));
+        this.scene.input.keyboard.on('keydown_TWO', function (event) {
+            this.spellState.fire = true;
+        }.bind(this));
     }
 
     _updatePhysics() {
@@ -73,6 +100,9 @@ export default class Wizard {
         if (this.ISJUMPING) {
             this.entity.body.setVelocityY(-550)
         }
+        if (this.ISFLYING) {
+            this.entity.body.setVelocityY(-1050);
+        }
         if (this.ISIDLE) {
             this.entity.body.setVelocityX(0);
             this.texture.anims.play('wizard-idle', true);
@@ -82,12 +112,44 @@ export default class Wizard {
     _updateGraphics() {
     }
 
+    _listenSpellState() {
+        if (this.spellState.fly && this.entity.body.onFloor()) {
+            this.spellState.fly = false;
+            this.fly();
+        }
+    }
+
+    fly() {
+        this.currentState = Wizard.STATE.flying;
+        this.createSpell('spell-fly', 'wizard-fly', 50);
+    }
+
+    createSpell(spriteName, animName, duration) {
+        this.spell = {
+            sprite: this.scene.add.sprite(0, 0, spriteName),
+            duration: duration
+        };
+        this.entity.add(this.spell.sprite);
+        this.spell.sprite.anims.play(animName);
+    }
+
+    _updateSpell() {
+        if (this.spell) {
+            this.spell.duration--;
+            if (this.spell.duration <= 0) {
+                this.spell.sprite.destroy();
+                this.spell = null;
+            }
+        }
+    }
+
     static get STATE() {
         return {
             idle: 0,
             walking: 1,
             jumping: 2,
-            falling: 3
+            falling: 3,
+            flying: 4
         }
     }
 
@@ -112,6 +174,10 @@ export default class Wizard {
 
     get ISFALLING() {
         return this.currentState === Wizard.STATE.falling;
+    }
+
+    get ISFLYING() {
+        return this.currentState === Wizard.STATE.flying;
     }
 
     get ISRIGHT() {

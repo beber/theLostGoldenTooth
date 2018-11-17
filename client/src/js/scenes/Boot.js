@@ -10,16 +10,18 @@ export default class extends Phaser.Scene {
         this.load.atlas('wizard', 'assets/game/wizard/wizard.png', 'assets/game/wizard/wizard.json');
         this.load.spritesheet('fairy',
             'assets/game/fairy/fairy-tilesprite.png',
-            {frameWidth: 64, frameHeight: 64}
+            {
+                frameWidth: 64,
+                frameHeight: 64
+            }
         );
+        this.load.spritesheet('spell-fly', 'assets/game/spells/wind-spell.png',
+            {
+                frameWidth: 64,
+                frameHeight: 64
+            });
 
         this.load.image('tiles', 'assets/game/levels/tiles_spritesheet.png');
-        // this.load.spritesheet('levelspritesheet', 'assets/game/levels/tiles_spritesheet.png', {
-        //     frameWidth: 70,
-        //     frameHeight: 70,
-        //     endFrame: 173
-        // });
-
         this.load.tilemapTiledJSON('level1', 'assets/game/levels/level1.json');
     }
 
