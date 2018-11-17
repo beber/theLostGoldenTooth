@@ -1,0 +1,22 @@
+{
+    "spells": [
+        {
+            "name": "fireball",
+            "class": "Fireball",
+            "element": "fire",
+            "inputs": ["right", "left"]
+        },
+        {
+            "name": "flame",
+            "class": "Flame",
+            "element": "fire",
+            "inputs": ["right","left","A", "B"]
+        },
+        {
+            "name": "fly",
+            "class": "Fly",
+            "element": "wind",
+            "inputs": ["top","top"]
+        }
+    ]
+}

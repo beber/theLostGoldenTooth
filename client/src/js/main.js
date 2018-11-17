@@ -4,14 +4,15 @@ import Phaser from 'phaser';
 import BootScene from './scenes/Boot'
 import GameScene from './scenes/Game'
 
-import ComboProcessor from "./processors/ComboProcessor";
+import SpellProcessor from "./processors/SpellProcessor";
 import ElementProcessor from "./processors/ElementProcessor";
 
 import Socket from './Socket'
 import MobileControls from "./MobileControls";
-
-import config from './config'
 import HUDController from "./HUDController";
+
+import spells from './spells/spells';
+import config from './config';
 
 const gameConfig = Object.assign(config, {
     scene: [BootScene, GameScene]
@@ -24,7 +25,7 @@ class Game extends Phaser.Game {
         this.hudController = new HUDController();
         this.processors = {
             'element': new ElementProcessor(this),
-            'combo': new ComboProcessor(this)
+            'spell': new SpellProcessor(this, spells.spells)
         };
         
         this.socket = socket;
@@ -54,6 +55,6 @@ let socket = new Socket(playerInformation);
 if (document.getElementById('game')) {
     window.game = new Game(socket);
 } else {
-    window.controls = new MobileControls(socket);
+    window.controls = new MobileControls(socket, spells.spells);
 }
 
