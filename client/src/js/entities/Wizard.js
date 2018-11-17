@@ -18,11 +18,14 @@ export default class Wizard {
             break: false
         }
         this.spell = null;
+        this.breakSpell = null;
     }
 
     create() {
         this.entity = this.scene.add.container(this.spawn.x, this.spawn.y);
         this.texture = this.scene.add.sprite(5, -10, 'texture');
+        this.breakSpell = this.scene.add.sprite(200, 3000, 'spell-break')
+        // this.entity.add(this.breakSpell)
         this.entity.add(this.texture);
         this.entity.setSize(35, 55);
         this.scene.physics.world.enable(this.entity);
@@ -55,6 +58,13 @@ export default class Wizard {
             frames: this.scene.anims.generateFrameNumbers('spell-fly', {start: 0, end: 3}),
             frameRate: 10,
             repeat: -1
+        });
+        this.scene.anims.create({
+            key: 'wizard-break',
+            frames: this.scene.anims.generateFrameNumbers('spell-break', {start: 0, end: 15}),
+            frameRate: 60,
+            showOnStart: true,
+            hideOnComplete: true
         });
     }
 
@@ -129,13 +139,16 @@ export default class Wizard {
     }
 
     fly() {
+        // Maybe on wizard
         this.currentState = Wizard.STATE.flying;
         this.createSpell('spell-fly', 'wizard-fly', 50);
     }
 
     break() {
         this.currentState = Wizard.STATE.breaking;
-        this.createSpell('spell-fly', 'wizard-fly', 50);
+        this.breakSpell.x = this.scene.cameras.main.scrollX + this.scene.game.input.mousePointer.x;
+        this.breakSpell.y = this.scene.cameras.main.scrollY + this.scene.game.input.mousePointer.y;
+        this.breakSpell.anims.play('wizard-break');
     }
 
     createSpell(spriteName, animName, duration) {
