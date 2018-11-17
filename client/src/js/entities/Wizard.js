@@ -7,7 +7,7 @@ export default class Wizard {
         this.health = 100;
         this.mana = 100;
         this.spawn = {
-            x: 310,
+            x: 410,
             y: 3150
         }
         this.currentState = Wizard.STATE.idle;
@@ -24,17 +24,33 @@ export default class Wizard {
     create() {
         this.entity = this.scene.add.container(this.spawn.x, this.spawn.y);
         this.texture = this.scene.add.sprite(5, -10, 'texture');
-        this.breakSpell = this.scene.add.sprite(200, 3000, 'spell-break')
-        // this.entity.add(this.breakSpell)
+        this.breakSpell = this.scene.add.sprite(200, 3000, 'spell-break');
         this.entity.add(this.texture);
         this.entity.setSize(35, 55);
         this.scene.physics.world.enable(this.entity);
+        this.scene.physics.world.enable(this.breakSpell);
+        this.breakSpell.body.enable = false;
+        this.scene.physics.add.overlap(this.breakSpell, this.scene.levelManager.panels, function (spell, object) {
+            console.log(object)
+            console.log(object.destroy())
+            // console.log(b)
+        });
+        console.log(this.breakSpell)
+        this.breakSpell.body.allowGravity = false;
         this.scene.physics.add.collider(this.entity, this.scene.physics.world);
         this.entity.body.setCollideWorldBounds(true);
+        this._setCollisions();
         this.setAnimationWizard();
         this.setAnimationSpell();
         this._listenInputsSpellsDev();
 
+    }
+
+    _setCollisions() {
+        for (let layer in this.scene.levelManager.physicsLayer) {
+            this.scene.physics.add.collider(this.entity, this.scene.levelManager.physicsLayer[layer]);
+        }
+        this.scene.physics.add.collider(this.entity, this.scene.levelManager.panels);
     }
 
     setAnimationWizard() {
@@ -146,9 +162,13 @@ export default class Wizard {
 
     break() {
         this.currentState = Wizard.STATE.breaking;
+        this.breakSpell.body.enable = true;
         this.breakSpell.x = this.scene.cameras.main.scrollX + this.scene.game.input.mousePointer.x;
         this.breakSpell.y = this.scene.cameras.main.scrollY + this.scene.game.input.mousePointer.y;
         this.breakSpell.anims.play('wizard-break');
+        this.breakSpell.on('animationcomplete', () => {
+            this.breakSpell.body.enable = false;
+        })
     }
 
     createSpell(spriteName, animName, duration) {
