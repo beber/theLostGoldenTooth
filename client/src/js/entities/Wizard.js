@@ -21,6 +21,13 @@ export default class Wizard {
         this.breakSpell = null;
     }
 
+    setSpawn(x, y) {
+        this.spawn = {
+            x: x,
+            y: y
+        }
+    }
+
     create() {
         this.entity = this.scene.add.container(this.spawn.x, this.spawn.y);
         this.texture = this.scene.add.sprite(5, -10, 'texture');

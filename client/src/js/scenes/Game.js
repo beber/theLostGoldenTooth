@@ -23,12 +23,14 @@ export default class extends Phaser.Scene {
         this.setControls();
 
         this.physics.world.setBounds(0, 0, this.levelManager.map.tileWidth * this.levelManager.map.width, this.levelManager.map.tileHeight * this.levelManager.map.height)
-        // Create characters, map and others things
         this.levelManager.loadLevel();
+
+        this.wizard.setSpawn(this.levelManager.getWizardSpawn().x, this.levelManager.getWizardSpawn().y)
         this.wizard.create();
 
         this.fairy.setSpawn(this.wizard.spawn);
         this.fairy.create();
+
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
         this.cameras.main.startFollow(this.wizard.entity, true, 0.05, 0.05);
     }

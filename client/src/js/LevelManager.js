@@ -60,11 +60,14 @@ export default class LevelManager {
         let breakablePanelLayer = this.map.getObjectLayer('BreakablePanel');
         breakablePanelLayer.objects.forEach((object) => {
             let panel = this.panels.create(object.x + object.width / 2, object.y + object.height / 2, 'panel');
-        })
-        // Phaser.Actions.SetOrigin(this.panels.getChildren(), 0.5, 0.5);
-        console.log(breakablePanelLayer);
-        console.log(this.panels);
-        console.log(Phaser)
-        // this.scene.physics.add.collider
+        });
+    }
+
+    getWizardSpawn() {
+        let spawnLayer = this.map.getObjectLayer('WizardSpawn');
+        return {
+            x: spawnLayer.objects[0].x,
+            y: spawnLayer.objects[0].y
+        }
     }
 }
