@@ -58,6 +58,7 @@ export default class Wizard {
             this.scene.physics.add.collider(this.entity, this.scene.levelManager.physicsLayer[layer]);
         }
         this.scene.physics.add.collider(this.entity, this.scene.levelManager.panels);
+        this.scene.physics.add.collider(this.entity, this.scene.goblin);
     }
 
     setAnimationWizard() {
