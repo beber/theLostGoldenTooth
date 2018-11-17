@@ -9,11 +9,10 @@ export default class {
     }
 
     loadSpells() {
-        console.log('pwet', this.spellsConfig);
         for (let i in this.spellsConfig) {
-            let path = '../spells/' + this.spellsConfig[i].element + '/' + this.spellsConfig[i].class;
-            import(path).then((e) => {
-                console.log(e);
+            console.log('../spells/' + this.spellsConfig[i].element + '/' + this.spellsConfig[i].class);
+            import('../spells/' + this.spellsConfig[i].element + '/' + this.spellsConfig[i].class).then((spell) => {
+                console.log(spell);
             });
         }
     }
