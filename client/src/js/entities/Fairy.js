@@ -4,6 +4,7 @@ export default class Fairy {
         this.entity = null;
         this.health = 100;
         this.mana = 100;
+        this.currentElement = 'wind';
         this.spawn = {
             x: 0,
             y: 0

@@ -1,11 +1,12 @@
 export default class {
-    constructor(game)
+    constructor(scene)
     {
-        this.game = game;
+        this.scene = scene;
     }
 
     execute(data)
     {
-        this.game.hudController.update('element', data.value);
+        this.scene.hudController.update('element', data.value);
+        this.scene.fairy.currentElement = data.value;
     }
 }

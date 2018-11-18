@@ -1,11 +1,13 @@
-export default class {
-    constructor()
-    {
+import Spell from '../Spell';
 
+export default class extends Spell
+{
+    constructor(scene) {
+        super(scene);
     }
 
-    execute()
-    {
+    execute() {
+        console.log('fireball');
 
     }
 }

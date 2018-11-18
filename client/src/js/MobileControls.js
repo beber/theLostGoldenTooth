@@ -5,7 +5,7 @@ export default class {
         this.currentElement = 'wind';
         this.spells = spells;
         this.socket = socket;
-        this.interval = 70;
+        this.interval = 250;
         this.comboContainer = document.getElementById('combo-container');
 
         this.loadComboSystem();
@@ -24,7 +24,7 @@ export default class {
     }
 
     loadElementSystem() {
-        this.elementInputs = document.getElementsByClassName('fire-input');
+        this.elementInputs = document.getElementsByClassName('element-input');
 
         for (let i = 0;i< this.elementInputs.length;++i) {
             this.elementInputs.item(i).onclick = (e) => {

@@ -2,7 +2,7 @@ export default class {
     constructor()
     {
         this.outputs = {
-            'element': document.getElementById('hud-fire')
+            'element': document.getElementById('hud-element')
         }
     }
 

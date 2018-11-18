@@ -1,9 +1,12 @@
-export default class {
-    constructor() {
+import Spell from '../Spell';
 
+export default class extends Spell
+{
+    constructor(scene) {
+        super(scene);
     }
 
-    execute(origin, target){
-
+    execute() {
+        this.scene.wizard.xVelocity = 800;
     }
 }

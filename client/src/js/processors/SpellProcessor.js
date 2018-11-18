@@ -1,7 +1,7 @@
 export default class {
-    constructor(game, spellsConfig)
+    constructor(scene, spellsConfig)
     {
-        this.game = game;
+        this.scene = scene;
         this.spellsConfig = spellsConfig;
         this.spells = {};
 
@@ -10,15 +10,18 @@ export default class {
 
     loadSpells() {
         for (let i in this.spellsConfig) {
-            console.log('../spells/' + this.spellsConfig[i].element + '/' + this.spellsConfig[i].class);
             import('../spells/' + this.spellsConfig[i].element + '/' + this.spellsConfig[i].class).then((spell) => {
-                console.log(spell);
+                this.spells[this.spellsConfig[i].name] = new spell.default(this.scene);
             });
         }
     }
 
     execute(data)
     {
-        console.log(data);
+        if (undefined === this.spells[data.value.name]) {
+            return;
+        }
+
+        this.spells[data.value.name].execute();
     }
 }
