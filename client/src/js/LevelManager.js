@@ -16,8 +16,6 @@ export default class LevelManager {
     }
 
     loadLevel() {
-
-        // this.yOffset = (this.map.tileHeight * this.map.height) * -1 + this.scene.game.config.height;
         this.yOffset = 0;
         this.createBackground();
         this.createFloor();
@@ -69,5 +67,9 @@ export default class LevelManager {
             x: spawnLayer.objects[0].x,
             y: spawnLayer.objects[0].y
         }
+    }
+
+    getGoblinsSpawns() {
+        return this.map.getObjectLayer('EnnemiSpawn').objects;
     }
 }

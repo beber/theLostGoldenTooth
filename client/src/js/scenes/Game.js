@@ -10,14 +10,16 @@ export default class extends Phaser.Scene {
         this.wizard = null;
         this.fairy = null;
         this.keys = null;
+        this.goblins = [];
     }
 
     preload() {
         this.wizard = new Wizard(this);
         this.fairy = new Fairy(this);
-        this.goblin = new Goblin(this);
+        // this.goblin = new Goblin(this);
         this.levelManager = new LevelManager(this);
         this.levelManager.setLevel(1);
+
     }
 
     create() {
@@ -27,7 +29,8 @@ export default class extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.levelManager.map.tileWidth * this.levelManager.map.width, this.levelManager.map.tileHeight * this.levelManager.map.height)
         this.levelManager.loadLevel();
 
-        this.goblin.create();
+        // this.goblin.create();
+        this.createGoblins();
 
         this.wizard.setSpawn(this.levelManager.getWizardSpawn().x, this.levelManager.getWizardSpawn().y)
         this.wizard.create();
@@ -41,9 +44,12 @@ export default class extends Phaser.Scene {
 
     update() {
         // Update characters, map and others things
-        this.goblin.update();
+        // this.goblin.update();
         this.wizard.update();
         this.fairy.update();
+        for (let i = 0; i < this.goblins.length; i++) {
+            this.goblins[i].update();
+        }
     }
 
     setControls() {
@@ -57,5 +63,20 @@ export default class extends Phaser.Scene {
             fly: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE),
             fire: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
         };
+    }
+
+    createGoblins() {
+        let spawns = this.levelManager.getGoblinsSpawns();
+        spawns.forEach(spawn => {
+            // Create goblins by reading number value in json map
+            for (let i = 0; i < spawn.properties[0].value; i++) {
+                let randX = Phaser.Math.RND.between(Math.round(spawn.x), Math.round(spawn.x + spawn.width));
+                let y = Math.round(spawn.y);
+                let goblin = new Goblin(this);
+                goblin.setSpawn(randX, y);
+                goblin.create();
+                this.goblins.push(goblin);
+            }
+        })
     }
 }

@@ -3,7 +3,8 @@ export default class Goblin {
         this.scene = scene;
         this.entity = null;
         this.texture = null;
-        this.xVelocity = 350;
+        this.xVelocity = 320;
+        this.yVelocity = -320;
         this.health = 50;
         this.spawn = {
             x: 410,
@@ -11,20 +12,22 @@ export default class Goblin {
         }
         this.currentState = Goblin.STATE.idle;
         this.direction = Goblin.DIRECTION.right;
-    }
-
-    create() {
-        this.entity = this.scene.add.sprite(400, 3000, 'goblin');
-        this.scene.physics.world.enable(this.entity);
-        this.entity.body.setSize(this.entity.width * .5, this.entity.height * .65);
-        this.entity.body.setOffset(this.entity.displayOriginX / 2, this.entity.displayOriginY / 2 - 20);
-        this._setAnimations();
-        this._setCollisions();
+        this.feelState = false;
+        this.feelMinDistance = 700;
     }
 
     setSpawn(x, y) {
         this.spawn.x = x;
         this.spawn.y = y;
+    }
+
+    create() {
+        this.entity = this.scene.add.sprite(this.spawn.x, this.spawn.y, 'goblin');
+        this.scene.physics.world.enable(this.entity);
+        this.entity.body.setSize(this.entity.width * .5, this.entity.height * .65);
+        this.entity.body.setOffset(this.entity.displayOriginX / 2, this.entity.displayOriginY / 2 - 20);
+        this._setAnimations();
+        this._setCollisions();
     }
 
     _setCollisions() {
@@ -49,9 +52,38 @@ export default class Goblin {
     }
 
     update() {
+
+        this._canFeel();
+        if (this.ISFEELINGWIZARD) {
+            this._setDirection();
+            this.entity.body.setVelocityX(this.xVelocity * this.direction);
+        }
         if (this.ISIDLE) {
             this.entity.body.setVelocityX(0);
             this.entity.anims.play('goblin-idle', true);
+        }
+        if (this.entity.body.blocked.left || this.entity.body.blocked.right) {
+            this.entity.body.setVelocityY(this.yVelocity);
+        }
+    }
+
+    _canFeel() {
+        let distanceFromWizard = Phaser.Math.Distance.Between(this.entity.body.x, this.entity.body.y, this.scene.wizard.entity.body.x, this.scene.wizard.entity.body.y);
+        if (distanceFromWizard <= this.feelMinDistance) {
+            this.feelState = true;
+            this.currentState = Goblin.STATE.walking;
+        } else {
+            this.currentState = Goblin.STATE.iddle;
+            this.feelState = false;
+        }
+    }
+
+    _setDirection() {
+        let vector = new Phaser.Math.Vector2(this.scene.wizard.entity.body).subtract(this.entity.body);
+        if (vector.x < 0) {
+            this.direction = Goblin.DIRECTION.left;
+        } else {
+            this.direction = Goblin.DIRECTION.right;
         }
     }
 
@@ -76,5 +108,9 @@ export default class Goblin {
 
     get ISIDLE() {
         return this.currentState === Goblin.STATE.idle;
+    }
+
+    get ISFEELINGWIZARD() {
+        return this.feelState === true;
     }
 }

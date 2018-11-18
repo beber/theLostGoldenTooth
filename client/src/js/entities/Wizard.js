@@ -38,11 +38,8 @@ export default class Wizard {
         this.scene.physics.world.enable(this.breakSpell);
         this.breakSpell.body.enable = false;
         this.scene.physics.add.overlap(this.breakSpell, this.scene.levelManager.panels, function (spell, object) {
-            console.log(object)
-            console.log(object.destroy())
-            // console.log(b)
+            object.destroy()
         });
-        console.log(this.breakSpell)
         this.breakSpell.body.allowGravity = false;
         this.scene.physics.add.collider(this.entity, this.scene.physics.world);
         this.entity.body.setCollideWorldBounds(true);
@@ -94,6 +91,7 @@ export default class Wizard {
 
     // Update function call in Scene update loop
     update() {
+        // console.log(this.entity.body);
         this._listenInputsMovement();
         this._listenSpellState();
         this._updatePhysics();
