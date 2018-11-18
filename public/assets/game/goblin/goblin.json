@@ -1,0 +1,524 @@
+{
+	"textures": [
+		{
+			"image": "goblin.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 786,
+				"h": 592
+			},
+			"scale": 0.25,
+			"frames": [
+				{
+					"filename": "2D_GOBLIN__Attack_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Attack_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 131,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Attack_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 262,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Attack_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 393,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Attack_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 524,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Attack_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 655,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Attack_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 0,
+						"y": 148,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Attack_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 131,
+						"y": 148,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Idle_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 262,
+						"y": 148,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Idle_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 393,
+						"y": 148,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Idle_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 524,
+						"y": 148,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Idle_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 655,
+						"y": 148,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Idle_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 0,
+						"y": 296,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Idle_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 131,
+						"y": 296,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Idle_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 262,
+						"y": 296,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Idle_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 393,
+						"y": 296,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Run_000.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 524,
+						"y": 296,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Run_001.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 655,
+						"y": 296,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Run_002.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 0,
+						"y": 444,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Run_003.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 131,
+						"y": 444,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Run_004.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 262,
+						"y": 444,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Run_005.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 393,
+						"y": 444,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Run_006.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 524,
+						"y": 444,
+						"w": 131,
+						"h": 148
+					}
+				},
+				{
+					"filename": "2D_GOBLIN__Run_007.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 131,
+						"h": 148
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 131,
+						"h": 148
+					},
+					"frame": {
+						"x": 655,
+						"y": 444,
+						"w": 131,
+						"h": 148
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:ef071b936402aee98edf5e4371de0990:88b1b54ae672433d3625498c93b52117:56fcc8a03b90e324aea6762dac4dd6a8$"
+	}
+}

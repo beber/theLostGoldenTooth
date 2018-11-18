@@ -8,6 +8,7 @@ export default class extends Phaser.Scene {
     preload() {
         // Load all assets here
         this.load.atlas('wizard', 'assets/game/wizard/wizard.png', 'assets/game/wizard/wizard.json');
+        this.load.atlas('goblin', 'assets/game/goblin/goblin.png', 'assets/game/goblin/goblin.json');
         this.load.spritesheet('fairy',
             'assets/game/fairy/fairy-tilesprite.png',
             {
@@ -20,8 +21,14 @@ export default class extends Phaser.Scene {
                 frameWidth: 64,
                 frameHeight: 64
             });
+        this.load.spritesheet('spell-break', 'assets/game/spells/hit-break.png',
+            {
+                frameWidth: 128,
+                frameHeight: 128
+            });
 
         this.load.image('tiles', 'assets/game/levels/tiles_spritesheet.png');
+        this.load.image('panel', 'assets/game/levels/panel.png');
         this.load.tilemapTiledJSON('level1', 'assets/game/levels/level1.json');
     }
 

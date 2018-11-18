@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import Wizard from '../entities/Wizard';
 import Fairy from '../entities/Fairy';
+import Goblin from '../entities/Goblin';
 import LevelManager from "../LevelManager";
 
 export default class extends Phaser.Scene {
@@ -14,6 +15,7 @@ export default class extends Phaser.Scene {
     preload() {
         this.wizard = new Wizard(this);
         this.fairy = new Fairy(this);
+        this.goblin = new Goblin(this);
         this.levelManager = new LevelManager(this);
         this.levelManager.setLevel(1);
     }
@@ -22,19 +24,24 @@ export default class extends Phaser.Scene {
         //Set controls
         this.setControls();
 
-        // Create characters, map and others things
+        this.physics.world.setBounds(0, 0, this.levelManager.map.tileWidth * this.levelManager.map.width, this.levelManager.map.tileHeight * this.levelManager.map.height)
+        this.levelManager.loadLevel();
+
+        this.goblin.create();
+
+        this.wizard.setSpawn(this.levelManager.getWizardSpawn().x, this.levelManager.getWizardSpawn().y)
         this.wizard.create();
+
         this.fairy.setSpawn(this.wizard.spawn);
         this.fairy.create();
 
-        this.levelManager.loadLevel();
-        this.physics.world.setBounds(0, 0, this.levelManager.map.tileWidth * this.levelManager.map.width, this.levelManager.map.tileHeight * this.levelManager.map.height)
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
         this.cameras.main.startFollow(this.wizard.entity, true, 0.05, 0.05);
     }
 
     update() {
         // Update characters, map and others things
+        this.goblin.update();
         this.wizard.update();
         this.fairy.update();
     }
