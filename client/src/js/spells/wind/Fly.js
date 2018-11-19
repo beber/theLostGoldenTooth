@@ -6,7 +6,15 @@ export default class extends Spell
         super(scene);
     }
 
+    preload() {
+
+    }
+
     execute() {
         this.scene.wizard.xVelocity = 800;
+    }
+
+    update() {
+
     }
 }

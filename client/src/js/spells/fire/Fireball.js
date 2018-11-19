@@ -6,43 +6,79 @@ export default class extends Spell
     constructor(scene) {
         super(scene);
 
-        this.duration = 50;
-        this.speed = 600;
-        this.fireRate = 500;
+        this.speed = 500;
 
-        this.spell = window.game.add.group();
-        this.spell.enableBody = true;
-        window.game.physics.enable(this.spell, Phaser.Physics.Arcade.ArcadePhysics);
-        // this.spell.createMultiple(50, 'fireball');
-        // this.spell.setAll('checkWorldBounds', true);
-        // this.spell.setAll('outOfBoundsKill', true);
+        this.entities = new Array();
+    }
+
+    preload() {
+        this.scene.anims.create({
+            key: 'wizard-fireball',
+            frames: this.scene.anims.generateFrameNumbers('spell-fireball', {start: 0, end: 5}),
+            frameRate: 6,
+            showOnStart: true,
+            hideOnComplete: false,
+            repeat: -1
+        });
 
         console.log('fireball loaded');
     }
 
     execute() {
-        console.log('fireball');
-        //
-        // this.initSpell( this.scene.wizard.entity.x, this.scene.wizard.entity.y );
-        //
-        // this.scene.physics.arcade.moveToPointer(this.entity, this.speed);
-        // this.entity.rotation = this.scene.physics.arcade.angleToPointer(this.entity);
+        console.log('fireball !!!');
+
+        let spell = this.initSpelll();
+
+        spell.angle = this.calculateAngle(spell);
+
+        this.loadCollisions(spell);
+
+        spell.anims.play('wizard-fireball');
+        this.entities.push(spell);
+
+        this.scene.physics.moveTo(spell,
+            this.scene.cameras.main.scrollX + this.scene.game.input.mousePointer.x,
+            this.scene.cameras.main.scrollY + this.scene.game.input.mousePointer.y,
+            this.speed
+        );
     }
 
-    initSpell(s_x,s_y){
-        if (this.scene.time.now <= this.nextFire || this.spell.countDead() <= 0) return false;
-        this.nextFire = this.scene.time.now + this.fireRate;
+    initSpelll() {
+        let spell = this.scene.add.sprite(83, 83, 'spell-fireball');
+        spell.obj = this;
+        spell.sid = this.entities.length;
 
-        this.entity = this.spell.getFirstDead();
-        this.entity.animations.add('fire',[0,1,2,3,4,5]);
-        this.entity.animations.play('fire', 24, true);
+        this.scene.physics.world.enable(spell);
 
-        this.entity.reset(s_x, s_y);
+        spell.x = this.scene.wizard.entity.x + 20;
+        spell.y = this.scene.wizard.entity.y;
+        spell.body.setSize(43,43);
+        spell.body.setOffset(20,20);
+        spell.body.enable = false;
+        spell.body.allowGravity = false;
+        spell.body.setCollideWorldBounds(true);
+        spell.body.enable = true;
 
-        this.entity.anchor.setTo(0.5,0.5);
-        this.entity.body.allowGravity = false;
+        return spell;
+    }
 
-        this.entity.obj = this;
+    loadCollisions(spell) {
+        this.scene.physics.add.overlap(spell, this.scene.goblin.entity, (spell, object) => {
+            object.destroy();
+            this.entities.splice(spell.sid, 1);
+            spell.destroy();
+
+        });
+    }
+
+    calculateAngle(spell) {
+        return Phaser.Math.Angle.BetweenPoints(
+            new Phaser.Geom.Point(spell.x, spell.y),
+            new Phaser.Geom.Point(
+                this.scene.cameras.main.scrollX + this.scene.game.input.mousePointer.x,
+                this.scene.cameras.main.scrollY + this.scene.game.input.mousePointer.y
+            )
+        ) * 180 / Math.PI;
     }
 
     update(){

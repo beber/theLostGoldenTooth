@@ -55,6 +55,10 @@ export default class Goblin {
     }
 
     update() {
+        if (undefined === this.entity.body || null === this.entity.body) {
+            return;
+        }
+
         this._canFeel();
         if (this.ISFEELINGWIZARD) {
             if (this._canThinkDirection()) {

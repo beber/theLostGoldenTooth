@@ -41,6 +41,9 @@ export default class extends Phaser.Scene {
         this.levelManager = new LevelManager(this);
         this.levelManager.setLevel(1);
 
+        for (let i in this.processors) {
+            this.processors[i].preload();
+        }
     }
 
     create() {
@@ -69,6 +72,10 @@ export default class extends Phaser.Scene {
         // this.goblin.update();
         this.wizard.update();
         this.fairy.update();
+
+        for (let i in this.processors) {
+            this.processors[i].update();
+        }
         for (let i = 0; i < this.goblins.length; i++) {
             this.goblins[i].update();
         }

@@ -4,14 +4,13 @@ export default class {
         this.scene = scene;
         this.spellsConfig = spellsConfig;
         this.spells = {};
-
-        this.loadSpells();
     }
 
-    loadSpells() {
+    preload() {
         for (let i in this.spellsConfig) {
             import('../spells/' + this.spellsConfig[i].element + '/' + this.spellsConfig[i].class).then((spell) => {
                 this.spells[this.spellsConfig[i].name] = new spell.default(this.scene);
+                this.spells[this.spellsConfig[i].name].preload();
             });
         }
 
@@ -27,5 +26,11 @@ export default class {
         }
 
         this.spells[data.value.name].execute();
+    }
+
+    update() {
+        for (let i in this.spells) {
+            this.spells[i].update();
+        }
     }
 }

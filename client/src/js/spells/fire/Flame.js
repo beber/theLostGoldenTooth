@@ -6,8 +6,17 @@ export default class extends Spell
         super(scene);
     }
 
+    preload() {
+
+    }
+
     execute() {
         console.log('flame');
+
+    }
+
+    update()
+    {
 
     }
 }
