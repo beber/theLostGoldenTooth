@@ -69,11 +69,11 @@ export default class Fairy {
                 props: {
                     x: {
                         value: this.wizardCoords.x,
-                        duration: 700
+                        duration: 50
                     },
                     y: {
                         value: this.wizardCoords.y,
-                        duration: 700
+                        duration: 50
                     }
                 },
                 ease: 'Linear',
