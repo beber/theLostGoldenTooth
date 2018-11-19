@@ -3,9 +3,11 @@ export default class Goblin {
         this.scene = scene;
         this.entity = null;
         this.texture = null;
-        this.xVelocity = 320;
-        this.yVelocity = -320;
+        this.xVelocity = Phaser.Math.RND.between(300, 330);
+        this.yVelocity = -520;
         this.health = 50;
+        this.delayReflexion = Phaser.Math.RND.between(700, 1200);
+        this.lastDirectionReflexion = Date.now();
         this.spawn = {
             x: 410,
             y: 3150
@@ -34,6 +36,7 @@ export default class Goblin {
         for (let layer in this.scene.levelManager.physicsLayer) {
             this.scene.physics.add.collider(this.entity, this.scene.levelManager.physicsLayer[layer]);
         }
+
     }
 
     _setAnimations() {
@@ -52,10 +55,11 @@ export default class Goblin {
     }
 
     update() {
-
         this._canFeel();
         if (this.ISFEELINGWIZARD) {
-            this._setDirection();
+            if (this._canThinkDirection()) {
+                this._setDirection();
+            }
             this.entity.body.setVelocityX(this.xVelocity * this.direction);
         }
         if (this.ISIDLE) {
@@ -63,8 +67,17 @@ export default class Goblin {
             this.entity.anims.play('goblin-idle', true);
         }
         if (this.entity.body.blocked.left || this.entity.body.blocked.right) {
-            this.entity.body.setVelocityY(this.yVelocity);
+            this._jump();
         }
+    }
+
+    _canThinkDirection() {
+        if (this.lastDirectionReflexion + this.delayReflexion < Date.now()) {
+            this.delayReflexion = Phaser.Math.RND.between(700, 1200);
+            this.lastDirectionReflexion = Date.now();
+            return true;
+        }
+        return false;
     }
 
     _canFeel() {
@@ -84,6 +97,13 @@ export default class Goblin {
             this.direction = Goblin.DIRECTION.left;
         } else {
             this.direction = Goblin.DIRECTION.right;
+        }
+    }
+
+    _jump() {
+        if (this.entity.body.onFloor()) {
+            this.currentState = Goblin.STATE.jumping;
+            this.entity.body.setVelocityY(this.yVelocity);
         }
     }
 
