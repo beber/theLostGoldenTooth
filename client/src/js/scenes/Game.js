@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import Wizard from '../entities/Wizard';
 import Fairy from '../entities/Fairy';
 import Goblin from '../entities/Goblin';
+import Boss from '../entities/Boss';
 import LevelManager from "../LevelManager";
 
 import SpellProcessor from "../processors/SpellProcessor";
@@ -19,6 +20,7 @@ export default class extends Phaser.Scene {
         this.fairy = null;
         this.cursors = null;
         this.keys = null;
+        this.boss = null;
         this.goblins = [];
 
         this.hudController = new HUDController();
@@ -37,7 +39,7 @@ export default class extends Phaser.Scene {
     preload() {
         this.wizard = new Wizard(this);
         this.fairy = new Fairy(this);
-        // this.goblin = new Goblin(this);
+        this.boss = new Boss(this);
         this.levelManager = new LevelManager(this);
         this.levelManager.setLevel(1);
 
@@ -65,6 +67,8 @@ export default class extends Phaser.Scene {
 
         // this.goblin.create();
         this.createGoblins();
+        this.boss.setSpawn(300, this.physics.world.bounds.height - 400)
+        this.boss.create();
 
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
         this.cameras.main.startFollow(this.wizard.entity, true, 0.05, 0.05);
@@ -72,7 +76,6 @@ export default class extends Phaser.Scene {
 
     update() {
         // Update characters, map and others things
-        // this.goblin.update();
         this.wizard.update();
         this.fairy.update();
 
@@ -82,6 +85,7 @@ export default class extends Phaser.Scene {
         for (let i = 0; i < this.goblins.length; i++) {
             this.goblins[i].update();
         }
+        this.boss.update();
     }
 
     setControls() {

@@ -3,10 +3,10 @@ export default class Goblin {
         this.scene = scene;
         this.entity = null;
         this.texture = null;
-        this.xVelocity = Phaser.Math.RND.between(300, 330);
+        this.xVelocity = Phaser.Math.RND.between(280, 300);
         this.yVelocity = -520;
         this.health = 50;
-        this.delayReflexion = Phaser.Math.RND.between(700, 1200);
+        this.delayReflexion = Phaser.Math.RND.between(500, 800);
         this.lastDirectionReflexion = Date.now();
         this.spawn = {
             x: 410,
@@ -77,7 +77,7 @@ export default class Goblin {
 
     _canThinkDirection() {
         if (this.lastDirectionReflexion + this.delayReflexion < Date.now()) {
-            this.delayReflexion = Phaser.Math.RND.between(700, 1200);
+            this.delayReflexion = Phaser.Math.RND.between(500, 800);
             this.lastDirectionReflexion = Date.now();
             return true;
         }
@@ -106,6 +106,7 @@ export default class Goblin {
 
     _jump() {
         if (this.entity.body.onFloor()) {
+            // console.log('JUMP')
             this.currentState = Goblin.STATE.jumping;
             this.entity.body.setVelocityY(this.yVelocity);
         }
