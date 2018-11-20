@@ -24,7 +24,7 @@ export default class Goblin {
     }
 
     create() {
-        this.entity = this.scene.add.sprite(this.spawn.x, this.spawn.y, 'goblin');
+        this.entity = this.scene.goblinsGroup.create(this.spawn.x, this.spawn.y, 'goblin');
         this.scene.physics.world.enable(this.entity);
         this.entity.body.setSize(this.entity.width * .5, this.entity.height * .65);
         this.entity.body.setOffset(this.entity.displayOriginX / 2, this.entity.displayOriginY / 2 - 20);
@@ -64,7 +64,8 @@ export default class Goblin {
             if (this._canThinkDirection()) {
                 this._setDirection();
             }
-            this.entity.body.setVelocityX(this.xVelocity * this.direction);
+            console.log(this.entity);
+            this.entity.body.setVelocity(this.xVelocity * this.direction, 0);
         }
         if (this.ISIDLE) {
             this.entity.body.setVelocityX(0);

@@ -95,6 +95,8 @@ export default class extends Phaser.Scene {
     }
 
     createGoblins() {
+        this.goblinsGroup = this.physics.add.staticGroup({});
+
         let spawns = this.levelManager.getGoblinsSpawns();
         spawns.forEach(spawn => {
             // Create goblins by reading number value in json map

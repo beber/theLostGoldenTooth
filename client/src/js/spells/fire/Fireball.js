@@ -8,7 +8,7 @@ export default class extends Spell
 
         this.speed = 500;
 
-        this.entities = new Array();
+        this.entities = [];
     }
 
     preload() {
@@ -63,7 +63,7 @@ export default class extends Spell
     }
 
     loadCollisions(spell) {
-        this.scene.physics.add.overlap(spell, this.scene.goblin.entity, (spell, object) => {
+        this.scene.physics.add.overlap(spell, this.scene.goblins, (spell, object) => {
             object.destroy();
             this.entities.splice(spell.sid, 1);
             spell.destroy();
