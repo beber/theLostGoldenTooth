@@ -17,6 +17,10 @@ export default class extends Spell {
     }
 
     execute() {
+        if (!this.scene.wizard.entity.body.onFloor()) {
+            return;
+        }
+
         let spell = this.scene.add.sprite(0, 0, 'spell-fly');
         spell.anims.play('wizard-fly');
 
