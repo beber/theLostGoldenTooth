@@ -46,6 +46,7 @@ export default class extends Phaser.Scene {
         for (let i in this.processors) {
             this.processors[i].preload();
         }
+        this.setAnimations();
     }
 
     create() {
@@ -83,7 +84,7 @@ export default class extends Phaser.Scene {
         for (let i = 0; i < this.goblins.getChildren().length; i++) {
             this.goblins.getChildren()[i].update()
         }
-        // this.boss.update();
+        this.boss.update();
     }
 
     setControls() {
@@ -111,6 +112,21 @@ export default class extends Phaser.Scene {
                 // goblin.create();
                 this.goblins.add(goblin);
             }
+        })
+    }
+
+    setAnimations() {
+        let idleFrameNames = this.anims.generateFrameNames('goblin', {
+            prefix: '2D_GOBLIN__Idle_',
+            suffix: '.png',
+            end: 7,
+            zeroPad: 3
+        });
+        this.anims.create({
+            key: 'goblin-idle',
+            frames: idleFrameNames,
+            frameRate: 10,
+            repeat: -1
         })
     }
 

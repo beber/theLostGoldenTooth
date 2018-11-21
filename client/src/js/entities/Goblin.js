@@ -1,6 +1,7 @@
 export default class Goblin extends Phaser.GameObjects.Sprite {
     constructor(config) {
         super(config.scene, config.x, config.y, 'goblin');
+
         this.scene = config.scene;
         this.xVelocity = Phaser.Math.RND.between(280, 300);
         this.yVelocity = -520;
@@ -24,10 +25,11 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
     }
 
     create() {
+        this.scene.add.existing(this);
         this.scene.physics.world.enable(this);
         this.body.setSize(this.width * .5, this.height * .65);
         this.body.setOffset(this.displayOriginX / 2, this.displayOriginY / 2 - 20);
-        this._setAnimations();
+        // this._setAnimations();
         this._setCollisions();
     }
 
@@ -37,21 +39,6 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         }
         this.scene.physics.add.overlap(this, this.scene.wizard.entity, function (goblin, wizard) {
             // console.log('overlap')
-        })
-    }
-
-    _setAnimations() {
-        let idleFrameNames = this.scene.anims.generateFrameNames('goblin', {
-            prefix: '2D_GOBLIN__Idle_',
-            suffix: '.png',
-            end: 7,
-            zeroPad: 3
-        });
-        this.scene.anims.create({
-            key: 'goblin-idle',
-            frames: idleFrameNames,
-            frameRate: 10,
-            repeat: -1
         })
     }
 
