@@ -1,7 +1,6 @@
 export default class Goblin extends Phaser.GameObjects.Sprite {
     constructor(config) {
         super(config.scene, config.x, config.y, 'goblin');
-
         this.scene = config.scene;
         this.xVelocity = Phaser.Math.RND.between(280, 300);
         this.yVelocity = -520;
