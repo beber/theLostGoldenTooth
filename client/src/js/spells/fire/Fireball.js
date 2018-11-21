@@ -63,12 +63,12 @@ export default class extends Spell
     }
 
     loadCollisions(spell) {
-        this.scene.physics.add.overlap(spell, this.scene.goblins, (spell, object) => {
-            object.destroy();
-            this.entities.splice(spell.sid, 1);
-            spell.destroy();
-
-        });
+        // this.scene.physics.add.overlap(spell, this.scene.goblins, (spell, object) => {
+        //     object.destroy();
+        //     this.entities.splice(spell.sid, 1);
+        //     spell.destroy();
+        //
+        // });
     }
 
     calculateAngle(spell) {

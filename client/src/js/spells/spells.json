@@ -7,10 +7,10 @@
             "inputs": ["right", "left"]
         },
         {
-            "name": "flame",
-            "class": "Flame",
-            "element": "fire",
-            "inputs": ["right","left","A", "B"]
+            "name": "break",
+            "class": "Break",
+            "element": "earth",
+            "inputs": ["bottom","bottom"]
         },
         {
             "name": "fly",

@@ -12,13 +12,6 @@ export default class Wizard {
         }
         this.currentState = Wizard.STATE.idle;
         this.direction = Wizard.DIRECTION.right;
-        this.spellState = {
-            fly: false,
-            fire: false,
-            break: false
-        }
-        this.spell = null;
-        this.breakSpell = null;
     }
 
     setSpawn(x, y) {
@@ -31,21 +24,13 @@ export default class Wizard {
     create() {
         this.entity = this.scene.add.container(this.spawn.x, this.spawn.y);
         this.texture = this.scene.add.sprite(5, -10, 'texture');
-        this.breakSpell = this.scene.add.sprite(200, 3000, 'spell-break');
         this.entity.add(this.texture);
         this.entity.setSize(35, 55);
         this.scene.physics.world.enable(this.entity);
-        this.scene.physics.world.enable(this.breakSpell);
-        this.breakSpell.body.enable = false;
-        this.scene.physics.add.overlap(this.breakSpell, this.scene.levelManager.panels, function (spell, object) {
-            object.destroy()
-        });
-        this.breakSpell.body.allowGravity = false;
         this.scene.physics.add.collider(this.entity, this.scene.physics.world);
         this.entity.body.setCollideWorldBounds(true);
         this._setCollisions();
         this.setAnimationWizard();
-        this.setAnimationSpell();
         this._listenInputsSpellsDev();
 
     }
@@ -73,30 +58,12 @@ export default class Wizard {
         })
     }
 
-    setAnimationSpell() {
-        this.scene.anims.create({
-            key: 'wizard-fly',
-            frames: this.scene.anims.generateFrameNumbers('spell-fly', {start: 0, end: 3}),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.scene.anims.create({
-            key: 'wizard-break',
-            frames: this.scene.anims.generateFrameNumbers('spell-break', {start: 0, end: 15}),
-            frameRate: 60,
-            showOnStart: true,
-            hideOnComplete: true
-        });
-    }
-
     // Update function call in Scene update loop
     update() {
         // console.log(this.entity.body);
         this._listenInputsMovement();
-        this._listenSpellState();
         this._updatePhysics();
         this._updateGraphics();
-        this._updateSpell();
     }
 
     _listenInputsMovement() {
@@ -116,13 +83,13 @@ export default class Wizard {
 
     _listenInputsSpellsDev() {
         this.scene.input.keyboard.on('keydown_ONE', function (event) {
-            this.spellState.fly = true;
+            this.scene.processors.spell.spells.fly.execute();
         }.bind(this));
         this.scene.input.keyboard.on('keydown_TWO', function (event) {
-            this.spellState.fire = true;
+            this.scene.processors.spell.spells.fireball.execute();
         }.bind(this));
         this.scene.input.keyboard.on('keydown_THREE', function (event) {
-            this.spellState.break = true;
+            this.scene.processors.spell.spells.break.execute();
         }.bind(this));
     }
 
@@ -136,9 +103,6 @@ export default class Wizard {
         if (this.ISJUMPING) {
             this.entity.body.setVelocityY(-550)
         }
-        if (this.ISFLYING) {
-            this.entity.body.setVelocityY(-1050);
-        }
         if (this.ISIDLE) {
             this.entity.body.setVelocityX(0);
             this.texture.anims.play('wizard-idle', true);
@@ -148,62 +112,12 @@ export default class Wizard {
     _updateGraphics() {
     }
 
-    _listenSpellState() {
-        if (this.spellState.fly && this.entity.body.onFloor()) {
-            this.spellState.fly = false;
-            this.fly();
-        }
-        if (this.spellState.break) {
-            console.log('Break, tremblement de terre')
-            this.break();
-            this.spellState.break = false;
-        }
-    }
-
-    fly() {
-        // Maybe on wizard
-        this.currentState = Wizard.STATE.flying;
-        this.createSpell('spell-fly', 'wizard-fly', 50);
-    }
-
-    break() {
-        this.currentState = Wizard.STATE.breaking;
-        this.breakSpell.body.enable = true;
-        this.breakSpell.x = this.scene.cameras.main.scrollX + this.scene.game.input.mousePointer.x;
-        this.breakSpell.y = this.scene.cameras.main.scrollY + this.scene.game.input.mousePointer.y;
-        this.breakSpell.anims.play('wizard-break');
-        this.breakSpell.on('animationcomplete', () => {
-            this.breakSpell.body.enable = false;
-        })
-    }
-
-    createSpell(spriteName, animName, duration) {
-        this.spell = {
-            sprite: this.scene.add.sprite(0, 0, spriteName),
-            duration: duration
-        };
-        this.entity.add(this.spell.sprite);
-        this.spell.sprite.anims.play(animName);
-    }
-
-    _updateSpell() {
-        if (this.spell) {
-            this.spell.duration--;
-            if (this.spell.duration <= 0) {
-                this.spell.sprite.destroy();
-                this.spell = null;
-            }
-        }
-    }
-
     static get STATE() {
         return {
             idle: 0,
             walking: 1,
             jumping: 2,
-            falling: 3,
-            flying: 4,
-            breaking: 5
+            falling: 3
         }
     }
 
@@ -228,14 +142,6 @@ export default class Wizard {
 
     get ISFALLING() {
         return this.currentState === Wizard.STATE.falling;
-    }
-
-    get ISFLYING() {
-        return this.currentState === Wizard.STATE.flying;
-    }
-
-    get ISBREAKING() {
-        return this.currentState === Wizard.STATE.breaking;
     }
 
     get ISRIGHT() {
