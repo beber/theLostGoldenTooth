@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import Wizard from '../entities/Wizard';
 import Fairy from '../entities/Fairy';
 import Goblin from '../entities/Goblin';
+import Boss from '../entities/Boss';
 import LevelManager from "../LevelManager";
 
 import SpellProcessor from "../processors/SpellProcessor";
@@ -19,7 +20,8 @@ export default class extends Phaser.Scene {
         this.fairy = null;
         this.cursors = null;
         this.keys = null;
-        this.goblins = [];
+        this.boss = null;
+        this.goblins = null;
 
         this.hudController = new HUDController();
         this.processors = {
@@ -37,13 +39,14 @@ export default class extends Phaser.Scene {
     preload() {
         this.wizard = new Wizard(this);
         this.fairy = new Fairy(this);
-        // this.goblin = new Goblin(this);
+        this.goblins = this.physics.add.group();
         this.levelManager = new LevelManager(this);
         this.levelManager.setLevel(1);
 
         for (let i in this.processors) {
             this.processors[i].preload();
         }
+        this.setAnimations();
     }
 
     create() {
@@ -63,25 +66,25 @@ export default class extends Phaser.Scene {
         this.fairy.setSpawn(this.wizard.spawn);
         this.fairy.create();
 
-        // this.goblin.create();
         this.createGoblins();
 
+        this.boss = new Boss({scene: this, x: 300, y: 3000});
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
         this.cameras.main.startFollow(this.wizard.entity, true, 0.05, 0.05);
     }
 
     update() {
         // Update characters, map and others things
-        // this.goblin.update();
         this.wizard.update();
         this.fairy.update();
 
         for (let i in this.processors) {
             this.processors[i].update();
         }
-        for (let i = 0; i < this.goblins.length; i++) {
-            this.goblins[i].update();
+        for (let i = 0; i < this.goblins.getChildren().length; i++) {
+            this.goblins.getChildren()[i].update()
         }
+        this.boss.update();
     }
 
     setControls() {
@@ -104,11 +107,26 @@ export default class extends Phaser.Scene {
             for (let i = 0; i < spawn.properties[0].value; i++) {
                 let randX = Phaser.Math.RND.between(Math.round(spawn.x), Math.round(spawn.x + spawn.width));
                 let y = Math.round(spawn.y);
-                let goblin = new Goblin(this);
-                goblin.setSpawn(randX, y);
-                goblin.create();
-                this.goblins.push(goblin);
+                let goblin = new Goblin({scene: this, x: randX, y: y});
+                // goblin.setSpawn(randX, y);
+                // goblin.create();
+                this.goblins.add(goblin);
             }
+        })
+    }
+
+    setAnimations() {
+        let idleFrameNames = this.anims.generateFrameNames('goblin', {
+            prefix: '2D_GOBLIN__Idle_',
+            suffix: '.png',
+            end: 7,
+            zeroPad: 3
+        });
+        this.anims.create({
+            key: 'goblin-idle',
+            frames: idleFrameNames,
+            frameRate: 10,
+            repeat: -1
         })
     }
 
