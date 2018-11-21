@@ -55,12 +55,16 @@ export default class Goblin {
     }
 
     update() {
+        if (undefined === this.entity.body || null === this.entity.body) {
+            return;
+        }
+
         this._canFeel();
         if (this.ISFEELINGWIZARD) {
             if (this._canThinkDirection()) {
                 this._setDirection();
             }
-            this.entity.body.setVelocityX(this.xVelocity * this.direction);
+            this.entity.body.setVelocityX(this.xVelocity * this.direction, 0);
         }
         if (this.ISIDLE) {
             this.entity.body.setVelocityX(0);

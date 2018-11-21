@@ -4,13 +4,34 @@ import Fairy from '../entities/Fairy';
 import Goblin from '../entities/Goblin';
 import LevelManager from "../LevelManager";
 
+import SpellProcessor from "../processors/SpellProcessor";
+import ElementProcessor from "../processors/ElementProcessor";
+
+import Socket from '../Socket'
+import HUDController from "../HUDController";
+
+import spells from '../spells/spells';
+
 export default class extends Phaser.Scene {
     constructor() {
         super({key: 'GameScene', backgroundColor: '#2d2d2d'});
         this.wizard = null;
         this.fairy = null;
+        this.cursors = null;
         this.keys = null;
         this.goblins = [];
+
+        this.hudController = new HUDController();
+        this.processors = {
+            'element': new ElementProcessor(this),
+            'spell': new SpellProcessor(this, spells.spells)
+        };
+
+        this.socket = new Socket(playerInformation);
+
+        this.socket.on('message', (data) => {
+            this.processMessage(data);
+        });
     }
 
     preload() {
@@ -20,6 +41,9 @@ export default class extends Phaser.Scene {
         this.levelManager = new LevelManager(this);
         this.levelManager.setLevel(1);
 
+        for (let i in this.processors) {
+            this.processors[i].preload();
+        }
     }
 
     create() {
@@ -48,6 +72,10 @@ export default class extends Phaser.Scene {
         // this.goblin.update();
         this.wizard.update();
         this.fairy.update();
+
+        for (let i in this.processors) {
+            this.processors[i].update();
+        }
         for (let i = 0; i < this.goblins.length; i++) {
             this.goblins[i].update();
         }
@@ -79,5 +107,17 @@ export default class extends Phaser.Scene {
                 this.goblins.push(goblin);
             }
         })
+    }
+
+    processMessage(data) {
+        if (undefined === data.type) {
+            console.error('message format is invalid');
+        }
+
+        if (undefined === this.processors[data.type]) {
+            console.error('Processor not found for type:' + data.type);
+        }
+
+        this.processors[data.type].execute(data);
     }
 }

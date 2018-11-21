@@ -32,7 +32,7 @@ export default class LevelManager {
 
     createFloor() {
         let floor = this.map.createStaticLayer('Floor', this.tileset, 0, this.yOffset);
-        floor.setOrigin(0)
+        floor.setOrigin(0);
         floor.setCollisionByExclusion([-1, 0], true);
         this.physicsLayer.push(floor)
     }
@@ -42,8 +42,8 @@ export default class LevelManager {
         platform.setCollisionByExclusion([-1, 0], true);
         let platformHalf = this.map.createStaticLayer('PlatformHalf', this.tileset, 0, this.yOffset);
         platformHalf.setCollisionByExclusion([-1, 0], true);
-        this.physicsLayer.push(platform)
-        this.physicsLayer.push(platformHalf)
+        this.physicsLayer.push(platform);
+        this.physicsLayer.push(platformHalf);
     }
 
     createkeyHolders() {

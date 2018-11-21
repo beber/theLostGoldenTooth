@@ -55,7 +55,7 @@ install: ready ## Install application
 ready: pretty ## Check if environment is ready
 	@echo "[READY]" | $(call $(PRINT),READY,$(COLOR_READY))
 	@docker run --rm --net=$(NETWORK) -e TIMEOUT=30 -e TARGETS=$(APP):9000 ddn0/wait 2> /dev/null
-	@docker run --rm --net=$(NETWORK) -e TIMEOUT=30 -e TARGETS=$(WEB):80 ddn0/wait 2> /dev/null
+	@docker run --rm --net=$(NETWORK) -e TIMEOUT=30 -e TARGETS=$(WEB):8080 ddn0/wait 2> /dev/null
 
 .PHONY: open
 open: ## Open the browser
