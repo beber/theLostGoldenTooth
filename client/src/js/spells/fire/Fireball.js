@@ -47,7 +47,7 @@ export default class extends Spell
         let spell = this.scene.add.sprite(83, 83, 'spell-fireball');
         spell.obj = this;
         spell.sid = this.entities.length;
-
+        spell.damage = 50;
         this.scene.physics.world.enable(spell);
 
         spell.x = this.scene.wizard.entity.x + 20;
@@ -75,8 +75,8 @@ export default class extends Spell
 
         for (let i in this.scene.goblins) {
             this.scene.physics.add.collider(spell, this.scene.goblins[i].entity, (fireball, goblin) => {
+                goblin.class.hit(spell.damage);
                 spell.destroy();
-                goblin.destroy();
             });
         }
 

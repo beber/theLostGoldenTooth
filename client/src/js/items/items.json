@@ -4,8 +4,8 @@
             "name": "health",
             "class": "Health",
             "sprite": {
-                "start": 27,
-                "end": 27
+                "start": 129,
+                "end": 129
             },
             "rate": {
                 "goblin": 0.6
@@ -15,8 +15,8 @@
             "name": "mana",
             "class": "Mana",
             "sprite": {
-                "start": 28,
-                "end": 28
+                "start": 137,
+                "end": 137
             },
             "rate": {
                 "goblin": 0.4

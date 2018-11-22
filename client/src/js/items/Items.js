@@ -4,5 +4,13 @@ export default class {
         this.scene = scene;
         this.rate = config.rate;
         this.spriteConfig = config.sprite;
+        this.entities = [];
+    }
+
+    create(x, y) {
+
+        let item = this.createItem(x, y);
+
+        this.entities.push(item);
     }
 }

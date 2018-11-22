@@ -1,22 +1,31 @@
 export default class {
     constructor(scene, itemsConfig)
     {
+        this.scene = scene;
         this.itemsConfig = itemsConfig;
         this.items = {};
 
         for(let i in this.itemsConfig) {
-            console.log(this.itemsConfig[i]);
-            console.log('./items/' + this.itemsConfig[i].class);
             import('./items/' + this.itemsConfig[i].class).then((item) => {
-                console.log(item);
-                this.items[this.itemsConfig[i].name] = new item.default(this.scene, this.spellsConfig[i]);
-                console.log(this.items[this.itemsConfig[i].name]);
+                this.items[this.itemsConfig[i].name] = new item.default(this.scene, this.itemsConfig[i]);
                 this.items[this.itemsConfig[i].name].preload();
             });
         }
     }
 
     dropItem(entity) {
-        console.log(entity, this.items);
+        for (let i in this.itemsConfig) {
+            let n = Math.random();
+            for (let j in this.itemsConfig[i].rate) {
+                console.log(j, entity.className);
+                if (j === entity.className && n >= this.itemsConfig[i].rate[j]) {
+                    return this.createItem(entity, this.items[this.itemsConfig[i].name]);
+                }
+            }
+        }
+    }
+
+    createItem(entity, item) {
+        item.create(entity.entity.x, entity.entity.y);
     }
 }
