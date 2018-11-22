@@ -1,0 +1,26 @@
+{
+    "items": [
+        {
+            "name": "health",
+            "class": "Health",
+            "sprite": {
+                "start": 27,
+                "end": 27
+            },
+            "rate": {
+                "goblin": 0.6
+            }
+        },
+        {
+            "name": "mana",
+            "class": "Mana",
+            "sprite": {
+                "start": 28,
+                "end": 28
+            },
+            "rate": {
+                "goblin": 0.4
+            }
+        }
+    ]
+}
