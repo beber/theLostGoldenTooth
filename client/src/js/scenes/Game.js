@@ -2,7 +2,6 @@ import Phaser from 'phaser'
 import Wizard from '../entities/Wizard';
 import Fairy from '../entities/Fairy';
 import Goblin from '../entities/Goblin';
-import Boss from '../entities/Boss';
 import LevelManager from "../LevelManager";
 
 import SpellProcessor from "../processors/SpellProcessor";
@@ -68,7 +67,7 @@ export default class extends Phaser.Scene {
 
         this.createGoblins();
 
-        this.boss = new Boss({scene: this, x: 300, y: 3000});
+        // this.boss = new Boss({scene: this, x: 300, y: 3000});
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
         this.cameras.main.startFollow(this.wizard.entity, true, 0.05, 0.05);
     }
@@ -84,7 +83,7 @@ export default class extends Phaser.Scene {
         for (let i = 0; i < this.goblins.getChildren().length; i++) {
             this.goblins.getChildren()[i].update()
         }
-        this.boss.update();
+        // this.boss.update();
     }
 
     setControls() {
@@ -116,15 +115,42 @@ export default class extends Phaser.Scene {
     }
 
     setAnimations() {
-        let idleFrameNames = this.anims.generateFrameNames('goblin', {
+        let goblinIdleFrameNames = this.anims.generateFrameNames('goblin', {
             prefix: '2D_GOBLIN__Idle_',
             suffix: '.png',
+            start: 0,
+            end: 7,
+            zeroPad: 3
+        });
+        let goblinRunningFrameNames = this.anims.generateFrameNames('goblin', {
+            prefix: '2D_GOBLIN__Run_',
+            suffix: '.png',
+            start: 0,
+            end: 7,
+            zeroPad: 3
+        });
+        let goblinAttackFrameNames = this.anims.generateFrameNames('goblin', {
+            prefix: '2D_GOBLIN__Attack_',
+            suffix: '.png',
+            start: 0,
             end: 7,
             zeroPad: 3
         });
         this.anims.create({
             key: 'goblin-idle',
-            frames: idleFrameNames,
+            frames: goblinIdleFrameNames,
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'goblin-run',
+            frames: goblinRunningFrameNames,
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'goblin-attack',
+            frames: goblinAttackFrameNames,
             frameRate: 10,
             repeat: -1
         })

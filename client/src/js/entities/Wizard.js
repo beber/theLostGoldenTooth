@@ -94,16 +94,14 @@ export default class Wizard {
     }
 
     _updatePhysics() {
-        if (this.ISWALKINGLEFT) {
-            this.entity.body.setVelocityX(this.xVelocity * -1);
-        }
-        if (this.ISWALKINGRIGHT) {
-            this.entity.body.setVelocityX(this.xVelocity);
+        if (this.ISWALKING) {
+            this.entity.body.setVelocityX(this.xVelocity * this.direction);
         }
         if (this.ISJUMPING) {
             this.entity.body.setVelocityY(-550)
         }
         if (this.ISIDLE) {
+            // console.log('ISIDLE UPDATE');
             this.entity.body.setVelocityX(0);
             this.texture.anims.play('wizard-idle', true);
         }
@@ -112,12 +110,19 @@ export default class Wizard {
     _updateGraphics() {
     }
 
+    hit(damage) {
+        this.health -= damage;
+        this.currentState = Wizard.STATE.hit;
+        this.entity.body.setVelocityX(this.xVelocity * this.direction * -2.5);
+    }
+
     static get STATE() {
         return {
             idle: 0,
             walking: 1,
             jumping: 2,
-            falling: 3
+            falling: 3,
+            hit: 4
         }
     }
 
@@ -142,6 +147,10 @@ export default class Wizard {
 
     get ISFALLING() {
         return this.currentState === Wizard.STATE.falling;
+    }
+
+    get ISHIT() {
+        return this.currentState === Wizard.STATE.hit;
     }
 
     get ISRIGHT() {

@@ -3,8 +3,11 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         super(config.scene, config.x, config.y, 'goblin');
         this.scene = config.scene;
         this.xVelocity = Phaser.Math.RND.between(280, 300);
-        this.yVelocity = -520;
+        this.yVelocity = -620;
         this.health = 50;
+        this.damage = 2;
+        this.lastAttack = Date.now();
+        this.lastAttackDelay = 1000;
         this.delayReflexion = Phaser.Math.RND.between(500, 800);
         this.lastDirectionReflexion = Date.now();
         this.spawn = {
@@ -15,6 +18,8 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         this.direction = Goblin.DIRECTION.right;
         this.feelState = false;
         this.feelMinDistance = 700;
+        this.attackMinDistance = 150;
+        this.nextToWizard = false;
         this.create();
     }
 
@@ -38,6 +43,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         }
         this.scene.physics.add.overlap(this, this.scene.wizard.entity, function (goblin, wizard) {
             // console.log('overlap')
+            this.nextToWizard = true;
         })
     }
 
@@ -45,12 +51,22 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         if (undefined === this.body || null === this.body) {
             return;
         }
-
         this._canFeel();
-        if (this.ISFEELINGWIZARD) {
-            if (this._canThinkDirection()) {
-                this._setDirection();
+        this._nextToWizard();
+        if (this.ISFEELINGWIZARD && this._canThinkDirection()) {
+            this._setDirection();
+        }
+        if (this.ISATTACKING) {
+            // console.log('ATTACK')
+            this.body.setVelocityX(0);
+            this.anims.play('goblin-attack', true);
+            if (this.lastAttack + this.lastAttackDelay < Date.now()) {
+                this.scene.wizard.hit(this.damage);
+                this.lastAttack = Date.now();
             }
+        }
+        if (this.ISWALKING) {
+            this.anims.play('goblin-run', true);
             this.body.setVelocityX(this.xVelocity * this.direction, 0);
         }
         if (this.ISIDLE) {
@@ -60,6 +76,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         if (this.body.blocked.left || this.body.blocked.right) {
             this._jump();
         }
+        this.nextToWizard = false;
     }
 
     _canThinkDirection() {
@@ -79,6 +96,19 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         } else {
             this.currentState = Goblin.STATE.iddle;
             this.feelState = false;
+        }
+    }
+
+    _nextToWizard() {
+        // console.log('NEXTTOWIZARD')
+        let distanceFromWizard = Phaser.Math.Distance.Between(this.body.x, this.body.y, this.scene.wizard.entity.body.x, this.scene.wizard.entity.body.y);
+        // console.log(distanceFromWizard)
+        if (distanceFromWizard <= this.attackMinDistance) {
+            this.nextToWizard = true;
+            this.currentState = Goblin.STATE.attacking;
+        } else {
+            this.currentState = Goblin.STATE.walking;
+            this.nextToWizard = false;
         }
     }
 
@@ -104,6 +134,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
             idle: 0,
             walking: 1,
             jumping: 2,
+            attacking: 3,
         }
     }
 
@@ -118,11 +149,19 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         return this.currentState === Goblin.STATE.walking;
     }
 
+    get ISATTACKING() {
+        return this.currentState === Goblin.STATE.attacking && this.ISNEXTTOWIZARD;
+    }
+
     get ISIDLE() {
         return this.currentState === Goblin.STATE.idle;
     }
 
     get ISFEELINGWIZARD() {
         return this.feelState === true;
+    }
+
+    get ISNEXTTOWIZARD() {
+        return this.nextToWizard === true;
     }
 }
