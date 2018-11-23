@@ -4,13 +4,15 @@ import Fairy from '../entities/Fairy';
 import Goblin from '../entities/Goblin';
 import LevelManager from "../LevelManager";
 
+import spells from '../spells/spells';
 import SpellProcessor from "../processors/SpellProcessor";
 import ElementProcessor from "../processors/ElementProcessor";
 
 import Socket from '../Socket'
 import HUDController from "../HUDController";
 
-import spells from '../spells/spells';
+import items from '../items/items';
+import ItemManager from "../ItemManager";
 
 export default class extends Phaser.Scene {
     constructor() {
@@ -33,6 +35,16 @@ export default class extends Phaser.Scene {
         this.socket.on('message', (data) => {
             this.processMessage(data);
         });
+
+        this.socket.on('sync', (data) => {
+            console.log('sync');
+            this.scene.resume()
+        });
+
+        this.socket.on('leave', (data) => {
+            console.log('leave');
+            this.scene.pause()
+        });
     }
 
     preload() {
@@ -40,6 +52,7 @@ export default class extends Phaser.Scene {
         this.fairy = new Fairy(this);
         this.goblins = this.physics.add.group();
         this.levelManager = new LevelManager(this);
+        this.itemManager = new ItemManager(this, items.items);
         this.levelManager.setLevel(1);
 
         for (let i in this.processors) {
@@ -70,6 +83,7 @@ export default class extends Phaser.Scene {
         // this.boss = new Boss({scene: this, x: 300, y: 3000});
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
         this.cameras.main.startFollow(this.wizard.entity, true, 0.05, 0.05);
+        this.scene.pause();
     }
 
     update() {

@@ -47,13 +47,13 @@ export default class extends Spell
         let spell = this.scene.add.sprite(83, 83, 'spell-fireball');
         spell.obj = this;
         spell.sid = this.entities.length;
-
+        spell.damage = 50;
         this.scene.physics.world.enable(spell);
 
         spell.x = this.scene.wizard.entity.x + 20;
         spell.y = this.scene.wizard.entity.y;
-        spell.body.setSize(43,43);
-        spell.body.setOffset(20,20);
+        spell.body.setSize(3,3);
+        spell.body.setOffset(40,40);
         spell.body.enable = false;
         spell.body.allowGravity = false;
         spell.body.setCollideWorldBounds(true);
@@ -63,12 +63,21 @@ export default class extends Spell
     }
 
     loadCollisions(spell) {
-        // this.scene.physics.add.overlap(spell, this.scene.goblins, (spell, object) => {
-        //     object.destroy();
-        //     this.entities.splice(spell.sid, 1);
-        //     spell.destroy();
-        //
-        // });
+        for (let layer in this.scene.levelManager.physicsLayer) {
+            this.scene.physics.add.collider(spell, this.scene.levelManager.physicsLayer[layer], (fireball, object) => {
+                fireball.destroy();
+            });
+        }
+
+        this.scene.physics.add.collider(spell, this.scene.levelManager.panels, (fireball, object) => {
+            fireball.destroy();
+        });
+
+        this.scene.physics.add.collider(spell, this.scene.goblins, (fireball, goblin) => {
+            goblin.hit(spell.damage);
+            spell.destroy();
+        });
+
     }
 
     calculateAngle(spell) {

@@ -2,6 +2,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
     constructor(config) {
         super(config.scene, config.x, config.y, 'goblin');
         this.scene = config.scene;
+        this.className = 'goblin';
         this.xVelocity = Phaser.Math.RND.between(280, 300);
         this.yVelocity = -620;
         this.health = 50;
@@ -13,7 +14,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         this.spawn = {
             x: 410,
             y: 3150
-        }
+        };
         this.currentState = Goblin.STATE.idle;
         this.direction = Goblin.DIRECTION.right;
         this.feelState = false;
@@ -35,6 +36,10 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         this.body.setOffset(this.displayOriginX / 2, this.displayOriginY / 2 - 20);
         // this._setAnimations();
         this._setCollisions();
+
+        this.on('destroy', () => {
+            this.scene.itemManager.dropItem(this);
+        });
     }
 
     _setCollisions() {
@@ -45,6 +50,14 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
             // console.log('overlap')
             this.nextToWizard = true;
         })
+    }
+
+    hit(damage) {
+        this.health -= damage;
+
+        if (this.health <= 0) {
+            this.destroy();
+        }
     }
 
     update() {
