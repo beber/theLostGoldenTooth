@@ -36,8 +36,8 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         this.body.setOffset(this.displayOriginX / 2, this.displayOriginY / 2 - 20);
         // this._setAnimations();
         this._setCollisions();
-        this.entity.class = this;
-        this.entity.on('destroy', () => {
+
+        this.on('destroy', () => {
             this.scene.itemManager.dropItem(this);
         });
     }
@@ -56,7 +56,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         this.health -= damage;
 
         if (this.health <= 0) {
-            this.entity.destroy();
+            this.destroy();
         }
     }
 

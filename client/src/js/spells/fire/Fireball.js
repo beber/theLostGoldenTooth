@@ -73,12 +73,10 @@ export default class extends Spell
             fireball.destroy();
         });
 
-        for (let i in this.scene.goblins) {
-            this.scene.physics.add.collider(spell, this.scene.goblins[i].entity, (fireball, goblin) => {
-                goblin.class.hit(spell.damage);
-                spell.destroy();
-            });
-        }
+        this.scene.physics.add.collider(spell, this.scene.goblins, (fireball, goblin) => {
+            goblin.hit(spell.damage);
+            spell.destroy();
+        });
 
     }
 

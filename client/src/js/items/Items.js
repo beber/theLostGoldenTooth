@@ -11,6 +11,13 @@ export default class {
 
         let item = this.createItem(x, y);
 
+        this.setCollisions(item);
         this.entities.push(item);
+    }
+
+    setCollisions(item) {
+        this.scene.physics.add.overlap(item, this.scene.wizard.entity, (item, wizard) => {
+            this.catchItem(item);
+        });
     }
 }

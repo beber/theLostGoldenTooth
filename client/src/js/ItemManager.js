@@ -26,6 +26,6 @@ export default class {
     }
 
     createItem(entity, item) {
-        item.create(entity.entity.x, entity.entity.y);
+        item.create(entity.x, entity.y);
     }
 }

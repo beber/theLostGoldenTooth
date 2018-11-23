@@ -41,4 +41,9 @@ export default class extends Items {
             this.scene.physics.add.collider(item, this.scene.levelManager.physicsLayer[layer]);
         }
     }
+
+    catchItem(item) {
+        item.destroy();
+        this.scene.wizard.heal(10);
+    }
 }

@@ -58,6 +58,16 @@ export default class Wizard {
         })
     }
 
+    heal(health) {
+        this.health += health;
+        this.health = this.health > 100 ? 100 : this.health;
+    }
+
+    power(mana) {
+        this.mana += mana;
+        this.mana = this.mana > 100 ? 100 : this.mana;
+    }
+
     // Update function call in Scene update loop
     update() {
         // console.log(this.entity.body);
