@@ -50,6 +50,10 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('message', function (data) {
+		if (undefined === player.partner) {
+			return;
+		}
+
 	    player.partner.socket.emit('message', data);
     });
 

@@ -17,8 +17,7 @@ export default class {
         for (let i in this.itemsConfig) {
             let n = Math.random();
             for (let j in this.itemsConfig[i].rate) {
-                console.log(j, entity.className);
-                if (j === entity.className && n >= this.itemsConfig[i].rate[j]) {
+                if (j === entity.className && n <= this.itemsConfig[i].rate[j]) {
                     return this.createItem(entity, this.items[this.itemsConfig[i].name]);
                 }
             }
