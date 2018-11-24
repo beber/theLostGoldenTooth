@@ -64,10 +64,13 @@ export default class extends Phaser.Scene {
     create() {
         //Set controls
         this.setControls();
-
+        // this.cameras.main.transparent = false;
+        // this.cameras.main.setBackgroundColor('rgba(255, 0, 0, 0.5)');
         this.physics.world.setBounds(0, 0, this.levelManager.map.tileWidth * this.levelManager.map.width, this.levelManager.map.tileHeight * this.levelManager.map.height)
-        this.levelManager.loadLevel();
+        // this.boss = new Boss({scene: this, x: 300, y: 3000});
+        this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
 
+        this.levelManager.loadLevel();
         this.wizard.setSpawn(this.levelManager.getWizardSpawn().x, this.levelManager.getWizardSpawn().y)
         this.wizard.create();
 
@@ -75,9 +78,6 @@ export default class extends Phaser.Scene {
         this.fairy.create();
 
         this.createGoblins();
-
-        // this.boss = new Boss({scene: this, x: 300, y: 3000});
-        this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
         this.cameras.main.startFollow(this.wizard.entity, true, 0.05, 0.05);
         this.scene.pause();
     }
@@ -115,10 +115,8 @@ export default class extends Phaser.Scene {
             // Create goblins by reading number value in json map
             for (let i = 0; i < spawn.properties[0].value; i++) {
                 let randX = Phaser.Math.RND.between(Math.round(spawn.x), Math.round(spawn.x + spawn.width));
-                let y = Math.round(spawn.y);
+                let y = Math.round(spawn.y) - 100;
                 let goblin = new Goblin({scene: this, x: randX, y: y});
-                // goblin.setSpawn(randX, y);
-                // goblin.create();
                 this.goblins.add(goblin);
             }
         })
