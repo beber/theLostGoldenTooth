@@ -54,7 +54,6 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
 
     hit(damage) {
         this.health -= damage;
-
         if (this.health <= 0) {
             this.destroy();
         }
@@ -129,14 +128,15 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         let vector = new Phaser.Math.Vector2(this.scene.wizard.entity.body).subtract(this.body);
         if (vector.x < 0) {
             this.direction = Goblin.DIRECTION.left;
+            this.flipX = false;
         } else {
             this.direction = Goblin.DIRECTION.right;
+            this.flipX = true;
         }
     }
 
     _jump() {
         if (this.body.onFloor()) {
-            // console.log('JUMP')
             this.currentState = Goblin.STATE.jumping;
             this.body.setVelocityY(this.yVelocity);
         }

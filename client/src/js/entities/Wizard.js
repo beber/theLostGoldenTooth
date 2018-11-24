@@ -168,7 +168,7 @@ export default class Wizard {
     hit(damage) {
         this.health -= damage;
         this.currentState = Wizard.STATE.hit;
-        this.entity.body.setVelocityX(this.xVelocity * this.direction * -2.5);
+        // this.entity.body.setVelocityX(this.xVelocity * this.direction * -2.5);
     }
 
     static get STATE() {
