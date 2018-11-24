@@ -18,6 +18,7 @@ export default class Fairy {
             y: 0
         };
         this.following = false;
+        this.direction = Fairy.DIRECTION.right;
     }
 
     create() {
@@ -31,6 +32,7 @@ export default class Fairy {
 
     update() {
         this._updateWizardCoords();
+        this._updateDirection();
         this._followWizard();
         this._updateGraphics();
     }
@@ -42,9 +44,13 @@ export default class Fairy {
 
     _updateWizardCoords() {
         if (this.wizardCoords.x !== this.scene.wizard.entity.x - this.spawnOffset.x || this.wizardCoords.y !== this.scene.wizard.entity.y - this.spawnOffset.y) {
-            this.wizardCoords.x = this.scene.wizard.entity.x - this.spawnOffset.x;
+            this.wizardCoords.x = this.scene.wizard.entity.x - (this.spawnOffset.x * this.direction);
             this.wizardCoords.y = this.scene.wizard.entity.y - this.spawnOffset.y;
         }
+    }
+
+    _updateDirection() {
+        this.direction = this.scene.wizard.direction;
     }
 
     _followWizard() {
@@ -52,6 +58,12 @@ export default class Fairy {
     }
 
     _updateGraphics() {
+        if (this.ISLEFT) {
+            this.entity.flipX = true;
+        }
+        if (this.ISRIGHT) {
+            this.entity.flipX = false;
+        }
     }
 
     static
@@ -67,6 +79,7 @@ export default class Fairy {
     get DIRECTION() {
         return {
             left: -1,
+            none: 0,
             right: 1
         }
     }
@@ -84,6 +97,6 @@ export default class Fairy {
     }
 
     get ISLEFT() {
-        return !this.ISRIGHT;
+        return this.direction === Fairy.DIRECTION.left;
     }
 }
