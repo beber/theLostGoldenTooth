@@ -1,8 +1,7 @@
 import Spell from '../Spell';
 import Phaser from 'phaser';
 
-export default class extends Spell
-{
+export default class extends Spell {
     constructor(scene) {
         super(scene);
 
@@ -15,7 +14,7 @@ export default class extends Spell
         this.scene.anims.create({
             key: 'wizard-fireball',
             frames: this.scene.anims.generateFrameNumbers('spell-fireball', {start: 0, end: 5}),
-            frameRate: 6,
+            frameRate: 24,
             showOnStart: true,
             hideOnComplete: false,
             repeat: -1
@@ -52,8 +51,8 @@ export default class extends Spell
 
         spell.x = this.scene.wizard.entity.x + 20;
         spell.y = this.scene.wizard.entity.y;
-        spell.body.setSize(3,3);
-        spell.body.setOffset(40,40);
+        spell.body.setSize(3, 3);
+        spell.body.setOffset(40, 40);
         spell.body.enable = false;
         spell.body.allowGravity = false;
         spell.body.setCollideWorldBounds(true);
@@ -90,7 +89,7 @@ export default class extends Spell
         ) * 180 / Math.PI;
     }
 
-    update(){
+    update() {
 
     }
 }
