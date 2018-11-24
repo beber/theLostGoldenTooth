@@ -68,9 +68,9 @@ export default class extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.levelManager.map.tileWidth * this.levelManager.map.width, this.levelManager.map.tileHeight * this.levelManager.map.height)
         this.levelManager.loadLevel();
 
-        for (let i in this.processors) {
-            this.processors[i].preload();
-        }
+        // for (let i in this.processors) {
+        //     this.processors[i].preload();
+        // }
 
         this.wizard.setSpawn(this.levelManager.getWizardSpawn().x, this.levelManager.getWizardSpawn().y)
         this.wizard.create();

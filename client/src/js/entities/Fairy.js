@@ -25,6 +25,8 @@ export default class Fairy {
         this.entity.play('fairy-idle-' + this.currentElement);
         this.wizardCoords.x = this.scene.wizard.entity.x;
         this.wizardCoords.y = this.scene.wizard.entity.y;
+        this.scene.physics.world.enable(this.entity);
+        this.entity.body.allowGravity = false;
     }
 
     update() {
@@ -46,28 +48,7 @@ export default class Fairy {
     }
 
     _followWizard() {
-        if (!this.following && (this.entity.x !== this.wizardCoords.x || this.entity.y !== this.wizardCoords.y)) {
-            this.scene.tweens.add({
-                targets: this.entity,
-                props: {
-                    x: {
-                        value: this.wizardCoords.x,
-                        duration: 50
-                    },
-                    y: {
-                        value: this.wizardCoords.y,
-                        duration: 50
-                    }
-                },
-                ease: 'Linear',
-                onStart: () => {
-                    this.following = true;
-                },
-                onComplete: () => {
-                    this.following = false;
-                }
-            })
-        }
+        this.scene.physics.moveTo(this.entity, this.wizardCoords.x, this.wizardCoords.y, 0, 250);
     }
 
     _updateGraphics() {
