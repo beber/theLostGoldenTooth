@@ -35,7 +35,7 @@ export default class Wizard {
         this._setCollisions();
         this.setAnimationWizard();
         this._listenInputsSpellsDev();
-
+        console.log(this.texture)
     }
 
     _setCollisions() {
@@ -109,9 +109,11 @@ export default class Wizard {
         if (this.scene.keys.left.isDown) {
             this.currentState = Wizard.STATE.walking;
             this.direction = Wizard.DIRECTION.left;
+            this.texture.flipX = true;
         } else if (this.scene.keys.right.isDown) {
             this.currentState = Wizard.STATE.walking;
             this.direction = Wizard.DIRECTION.right;
+            this.texture.flipX = false;
         } else {
             this.currentState = Wizard.STATE.idle;
             this.direction = Wizard.DIRECTION.none;
@@ -161,7 +163,6 @@ export default class Wizard {
         if (this.ISIDLE) {
             this.texture.anims.play('wizard-idle', true);
         }
-        // console.log(this.currentState);
     }
 
     hit(damage) {
