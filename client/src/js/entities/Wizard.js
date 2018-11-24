@@ -12,6 +12,9 @@ export default class Wizard {
         }
         this.currentState = Wizard.STATE.idle;
         this.direction = Wizard.DIRECTION.right;
+        this.isAttacking = false;
+        this.attackDelay = 1000;
+        this.lastAttackTime = Date.now();
     }
 
     setSpawn(x, y) {
@@ -47,6 +50,21 @@ export default class Wizard {
         let idleFrameNames = this.scene.anims.generateFrameNames('wizard', {
             prefix: '1_IDLE_',
             suffix: '.png',
+            start: 0,
+            end: 4,
+            zeroPad: 3
+        });
+        let attackFrameNames = this.scene.anims.generateFrameNames('wizard', {
+            prefix: '5_ATTACK_',
+            suffix: '.png',
+            start: 0,
+            end: 4,
+            zeroPad: 3
+        });
+        let runFrameNames = this.scene.anims.generateFrameNames('wizard', {
+            prefix: '3_RUN_',
+            suffix: '.png',
+            start: 0,
             end: 4,
             zeroPad: 3
         });
@@ -54,6 +72,19 @@ export default class Wizard {
             key: 'wizard-idle',
             frames: idleFrameNames,
             frameRate: 10,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: 'wizard-attack',
+            frames: attackFrameNames,
+            duration: 500,
+            frameRate: 7,
+            repeat: 1
+        });
+        this.scene.anims.create({
+            key: 'wizard-run',
+            frames: runFrameNames,
+            frameRate: 25,
             repeat: -1
         })
     }
@@ -68,12 +99,10 @@ export default class Wizard {
         this.mana = this.mana > 100 ? 100 : this.mana;
     }
 
-    // Update function call in Scene update loop
     update() {
-        // console.log(this.entity.body);
         this._listenInputsMovement();
         this._updatePhysics();
-        this._updateGraphics();
+
     }
 
     _listenInputsMovement() {
@@ -85,6 +114,10 @@ export default class Wizard {
             this.direction = Wizard.DIRECTION.right;
         } else {
             this.currentState = Wizard.STATE.idle;
+            this.direction = Wizard.DIRECTION.none;
+        }
+        if (this.isAttacking && this.ISLASTATTACKOUTDATED) {
+            this.isAttacking = false;
         }
         if (this.scene.keys.jump.isDown && this.entity.body.onFloor()) {
             this.currentState = Wizard.STATE.jumping;
@@ -96,7 +129,14 @@ export default class Wizard {
             this.scene.processors.spell.spells.fly.execute();
         }.bind(this));
         this.scene.input.keyboard.on('keydown_TWO', function (event) {
-            this.scene.processors.spell.spells.fireball.execute();
+            if (!this.ISLASTATTACKOUTDATED) {
+                return;
+            }
+            this.lastAttackTime = Date.now();
+            this.isAttacking = true;
+            setTimeout(function () {
+                this.scene.processors.spell.spells.fireball.execute();
+            }.bind(this), 600);
         }.bind(this));
         this.scene.input.keyboard.on('keydown_THREE', function (event) {
             this.scene.processors.spell.spells.break.execute();
@@ -106,18 +146,22 @@ export default class Wizard {
     _updatePhysics() {
         if (this.ISWALKING) {
             this.entity.body.setVelocityX(this.xVelocity * this.direction);
+            if (!this.ISATTACKING) {
+                this.texture.anims.play('wizard-run', true);
+            }
+        } else {
+            this.entity.body.setVelocityX(0);
         }
         if (this.ISJUMPING) {
             this.entity.body.setVelocityY(-550)
         }
+        if (this.ISATTACKING) {
+            this.texture.anims.play('wizard-attack', true);
+        }
         if (this.ISIDLE) {
-            // console.log('ISIDLE UPDATE');
-            this.entity.body.setVelocityX(0);
             this.texture.anims.play('wizard-idle', true);
         }
-    }
-
-    _updateGraphics() {
+        // console.log(this.currentState);
     }
 
     hit(damage) {
@@ -132,15 +176,25 @@ export default class Wizard {
             walking: 1,
             jumping: 2,
             falling: 3,
-            hit: 4
+            hit: 4,
+            attacking: 5
         }
     }
 
     static get DIRECTION() {
         return {
             left: -1,
+            none: 0,
             right: 1
         }
+    }
+
+    get ISLASTATTACKOUTDATED() {
+        return this.lastAttackTime + this.attackDelay < Date.now();
+    }
+
+    get ISATTACKING() {
+        return this.isAttacking === true;
     }
 
     get ISWALKING() {
@@ -148,7 +202,7 @@ export default class Wizard {
     }
 
     get ISIDLE() {
-        return this.currentState === Wizard.STATE.idle;
+        return this.currentState === Wizard.STATE.idle && this.isAttacking === false;
     }
 
     get ISJUMPING() {
