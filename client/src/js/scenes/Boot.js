@@ -41,8 +41,10 @@ export default class extends Phaser.Scene {
             }
         );
         this.load.image('tiles', 'assets/game/levels/tiles_spritesheet.png');
+        this.load.image('tilestest', 'assets/game/levels/spritessheets/test-extruded.png');
         this.load.image('panel', 'assets/game/levels/panel.png');
         this.load.tilemapTiledJSON('level1', 'assets/game/levels/level1.json');
+        this.load.tilemapTiledJSON('leveltest', 'assets/game/levels/leveltest.json');
     }
 
     create() {
