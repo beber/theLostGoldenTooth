@@ -107,7 +107,6 @@ export default class {
     }
 
     loadComboSystem() {
-        console.log('load combo system');
 
         this.comboInputs = document.getElementsByClassName('combo-input');
         this.inputs = [];

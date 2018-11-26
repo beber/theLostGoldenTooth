@@ -6,7 +6,6 @@ export default class extends Items {
     }
 
     preload() {
-        console.log( {start: this.spriteConfig.start, end: this.spriteConfig.end});
         this.scene.anims.create({
             key: 'health',
             frames: this.scene.anims.generateFrameNumbers('items', {start: this.spriteConfig.start, end: this.spriteConfig.end}),

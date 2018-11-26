@@ -1,14 +1,14 @@
 import Items from "./Items";
 
 export default class extends Items {
-    constructor(scene) {
-        super(scene);
+    constructor(scene, config) {
+        super(scene, config);
     }
 
     preload() {
         this.scene.anims.create({
             key: 'key',
-            frames: this.scene.anims.generateFrameNumbers('key', {start: this.spriteConfig.start, end: this.spriteConfig.end}),
+            frames: this.scene.anims.generateFrameNumbers('keys', {start: this.spriteConfig.start, end: this.spriteConfig.end}),
             frameRate: this.spriteConfig.end - this.spriteConfig.start + 1,
             showOnStart: true,
             hideOnComplete: false,
@@ -30,7 +30,7 @@ export default class extends Items {
 
         this._setCollisions(item);
 
-        item.anims.play('mana');
+        item.anims.play('key');
 
         return item;
     }
@@ -43,7 +43,9 @@ export default class extends Items {
     }
 
     catchItem(item) {
-        item.destroy();
-        this.scene.wizard.power(10);
+        this.scene.physics.world.disable(item);
+        item.setScrollFactor(0);
+        item.x =  50;
+        item.y =  50;
     }
 }

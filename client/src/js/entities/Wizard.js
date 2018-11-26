@@ -1,3 +1,5 @@
+import Inventory from "../Inventory";
+
 export default class Wizard {
     constructor(scene) {
         this.scene = scene;
@@ -25,6 +27,7 @@ export default class Wizard {
     }
 
     create() {
+        this.inventory = new Inventory(this.scene);
         this.entity = this.scene.add.container(this.spawn.x, this.spawn.y);
         this.texture = this.scene.add.sprite(5, -10, 'texture');
         this.entity.add(this.texture);
@@ -35,7 +38,6 @@ export default class Wizard {
         this._setCollisions();
         this.setAnimationWizard();
         this._listenInputsSpellsDev();
-        console.log(this.texture)
     }
 
     _setCollisions() {

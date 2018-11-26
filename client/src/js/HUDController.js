@@ -8,9 +8,7 @@ export default class {
 
     update(element, value)
     {
-        console.log(this.outputs[element]);
         if (undefined === this.outputs[element] || null === this.outputs[element]) {
-            console.error('element ' + element + ' not found');
 
             return;
         }
