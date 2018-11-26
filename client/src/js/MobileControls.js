@@ -5,7 +5,7 @@ export default class {
         this.currentElement = 'wind';
         this.spells = spells;
         this.socket = socket;
-        this.interval = 100;
+        this.interval = 50;
         this.comboContainer = document.getElementById('combo-container');
         this.fullScreen = false;
 

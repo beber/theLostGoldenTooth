@@ -15,6 +15,15 @@ export default class {
 
     dropItem(entity) {
         for (let i in this.itemsConfig) {
+            if (undefined === this.itemsConfig[i].rate) {
+console.log(this.scene.goblins);
+                if ('key' === this.itemsConfig[i].name && 0 === this.scene.goblins.length) {
+                    return this.createItem(entity, this.items[this.itemsConfig[i].name]);
+                }
+
+                continue;
+            }
+
             let n = Math.random();
             for (let j in this.itemsConfig[i].rate) {
                 if (j === entity.className && n <= this.itemsConfig[i].rate[j]) {

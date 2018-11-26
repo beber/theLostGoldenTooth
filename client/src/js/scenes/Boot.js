@@ -40,6 +40,12 @@ export default class extends Phaser.Scene {
                 frameHeight: 32
             }
         );
+        this.load.spritesheet('keys', 'assets/game/items/keys.png',
+            {
+                frameWidth: 32,
+                frameHeight: 32
+            }
+        );
         this.load.image('tiles', 'assets/game/levels/tiles_spritesheet.png');
         this.load.image('panel', 'assets/game/levels/panel.png');
         this.load.tilemapTiledJSON('level1', 'assets/game/levels/level1.json');

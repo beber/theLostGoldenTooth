@@ -21,6 +21,14 @@
             "rate": {
                 "goblin": 0.4
             }
+        },
+        {
+            "name": "key",
+            "class": "Key",
+            "sprite": {
+                "start": 0,
+                "end": 0
+            }
         }
     ]
 }
