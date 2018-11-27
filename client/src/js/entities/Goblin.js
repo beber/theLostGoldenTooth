@@ -35,6 +35,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         for (let layer in this.scene.levelManager.physicsLayer) {
             this.scene.physics.add.collider(this, this.scene.levelManager.physicsLayer[layer]);
         }
+        this.scene.physics.add.collider(this, this.scene.levelManager.panels);
     }
 
     hit(damage) {
