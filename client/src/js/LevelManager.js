@@ -2,7 +2,6 @@ export default class LevelManager {
     constructor(scene) {
         this.scene = scene;
         this.level = null;
-        // this._levelNumber = 1;
         this._levelNumber = 'final';
         this.map = null;
         this.tileset = null;
@@ -24,7 +23,7 @@ export default class LevelManager {
         // this.createPlatform();
         // this.createkeyHolders();
         // this.createDoor();
-        // this.createBreakablePanel();
+        this.createBreakablePanel();
     }
 
     createBackground() {
