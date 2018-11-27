@@ -104,7 +104,6 @@ export default class Wizard {
     update() {
         this._listenInputsMovement();
         this._updatePhysics();
-
     }
 
     _listenInputsMovement() {

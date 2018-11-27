@@ -35,10 +35,6 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         for (let layer in this.scene.levelManager.physicsLayer) {
             this.scene.physics.add.collider(this, this.scene.levelManager.physicsLayer[layer]);
         }
-        // this.scene.physics.add.overlap(this, this.scene.wizard.entity, function (goblin, wizard) {
-        //     // console.log('overlap')
-        //     this.nextToWizard = true;
-        // })
     }
 
     hit(damage) {

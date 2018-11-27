@@ -76,7 +76,7 @@ export default class extends Phaser.Scene {
         this.fairy.create();
 
         this.createGoblins();
-        this.cameras.main.startFollow(this.wizard.entity, true, 0.05, 0.05);
+        this.cameras.main.startFollow(this.wizard.entity, false, 0.05, 0.05);
         this.scene.pause();
     }
 
