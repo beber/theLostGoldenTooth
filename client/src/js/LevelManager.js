@@ -3,14 +3,14 @@ export default class LevelManager {
         this.scene = scene;
         this.level = null;
         // this._levelNumber = 1;
-        this._levelNumber = 'test';
+        this._levelNumber = 'final';
         this.map = null;
         this.tileset = null;
         this.physicsLayer = [];
         this.panels = this.scene.physics.add.staticGroup({immovable: true});
         this.map = this.scene.add.tilemap('level' + this._levelNumber);
-        // this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'tiles', 70, 70, 0, 2);
-        this.tileset = this.map.addTilesetImage('test', 'tilestest', 70, 70, 1, 2);
+        this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'tiles', 70, 70, 0, 2);
+        // this.tileset = this.map.addTilesetImage('test', 'tilestest', 70, 70, 1, 2);
     }
 
     setLevel(number) {
