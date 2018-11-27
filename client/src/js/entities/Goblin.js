@@ -15,7 +15,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         this.currentState = Goblin.STATE.idle;
         this.direction = Goblin.DIRECTION.right;
         this.feelState = false;
-        this.feelMinDistance = 700;
+        this.feelMinDistance = 350;
         this.attackMinDistance = 150;
         this.nextToWizard = false;
         this.create();
@@ -35,6 +35,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
         for (let layer in this.scene.levelManager.physicsLayer) {
             this.scene.physics.add.collider(this, this.scene.levelManager.physicsLayer[layer]);
         }
+        this.scene.physics.add.collider(this, this.scene.levelManager.panels);
     }
 
     hit(damage) {
@@ -88,7 +89,10 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
 
     _canFeel() {
         let distanceFromWizard = Phaser.Math.Distance.Between(this.body.x, this.body.y, this.scene.wizard.entity.body.x, this.scene.wizard.entity.body.y);
-        if (distanceFromWizard <= this.feelMinDistance) {
+        let angleFromWizard = Phaser.Math.Angle.Between(this.body.x, this.body.y, this.scene.wizard.entity.body.x, this.scene.wizard.entity.y);
+        angleFromWizard = angleFromWizard * 180 / Math.PI;
+        let goodAngle = (angleFromWizard > 100 && angleFromWizard < 180 || angleFromWizard < -170) || (angleFromWizard > -20 && angleFromWizard < 40)
+        if (distanceFromWizard <= this.feelMinDistance && goodAngle) {
             this.feelState = true;
             this.currentState = Goblin.STATE.walking;
         } else {
