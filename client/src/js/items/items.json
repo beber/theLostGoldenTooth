@@ -1,6 +1,14 @@
 {
     "items": [
         {
+            "name": "key",
+            "class": "Key",
+            "sprite": {
+                "start": 1,
+                "end": 1
+            }
+        },
+        {
             "name": "health",
             "class": "Health",
             "sprite": {
@@ -8,7 +16,7 @@
                 "end": 129
             },
             "rate": {
-                "goblin": 0.6
+                "goblin": 0.3
             }
         },
         {

@@ -1,14 +1,14 @@
 import Items from "./Items";
 
 export default class extends Items {
-    constructor(scene, config){
+    constructor(scene, config) {
         super(scene, config);
     }
 
     preload() {
         this.scene.anims.create({
-            key: 'health',
-            frames: this.scene.anims.generateFrameNumbers('items', {start: this.spriteConfig.start, end: this.spriteConfig.end}),
+            key: 'key',
+            frames: this.scene.anims.generateFrameNumbers('keys', {start: this.spriteConfig.start, end: this.spriteConfig.end}),
             frameRate: this.spriteConfig.end - this.spriteConfig.start + 1,
             showOnStart: true,
             hideOnComplete: false,
@@ -17,7 +17,7 @@ export default class extends Items {
     }
 
     createItem(x, y) {
-        let item = this.scene.add.sprite(32, 32, 'health');
+        let item = this.scene.add.sprite(32, 32, 'key');
         item.obj = this;
         item.sid = this.entities.length;
         item.health = 50;
@@ -30,10 +30,11 @@ export default class extends Items {
 
         this._setCollisions(item);
 
-        item.anims.play('health');
+        item.anims.play('key');
 
         return item;
     }
+
 
     _setCollisions(item) {
         for (let layer in this.scene.levelManager.physicsLayer) {
@@ -42,7 +43,9 @@ export default class extends Items {
     }
 
     catchItem(item) {
-        item.destroy();
-        this.scene.wizard.heal(10);
+        this.scene.physics.world.disable(item);
+        item.setScrollFactor(0);
+        item.x =  50;
+        item.y =  50;
     }
 }

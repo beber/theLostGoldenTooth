@@ -13,14 +13,10 @@ export default class {
                 this.spells[this.spellsConfig[i].name].preload();
             });
         }
-
-        console.log(this.spells);
     }
 
     execute(data)
     {
-        console.log(data);
-        console.log(this.spells);
         if (undefined === this.spells[data.value.name]) {
             return;
         }

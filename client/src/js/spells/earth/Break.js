@@ -13,8 +13,6 @@ export default class extends Spell{
             showOnStart: true,
             hideOnComplete: true
         });
-
-        console.log('break loaded');
     }
 
     execute() {

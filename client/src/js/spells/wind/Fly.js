@@ -12,8 +12,6 @@ export default class extends Spell {
             frameRate: 10,
             repeat: -1
         });
-
-        console.log('fly loaded');
     }
 
     execute() {

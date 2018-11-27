@@ -5,11 +5,80 @@ export default class {
         this.currentElement = 'wind';
         this.spells = spells;
         this.socket = socket;
-        this.interval = 100;
+        this.interval = 50;
         this.comboContainer = document.getElementById('combo-container');
+        this.fullScreen = false;
 
+        this.loadFullScreenMode();
         this.loadComboSystem();
         this.loadElementSystem();
+    }
+
+    loadFullScreenMode() {
+        if (this.canFullScreen()) {
+            this.addFullScreenButton();
+        }
+    }
+
+    toggleFullScreenButton() {
+        let e = document.getElementById('fullscreen');
+        if (!this.fullScreen) {
+            this.fullScreen = true;
+            e.onclick = () => {
+                this.exitFullScreen();
+            }
+        } else {
+            this.fullScreen = false;
+            e.onclick =  () => {
+                this.goFullScreen();
+            }
+        }
+    }
+
+    exitFullScreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+
+        this.toggleFullScreenButton();
+    }
+
+    goFullScreen() {
+        let i = document.getElementById("gamepad");
+
+        if (i.requestFullscreen) {
+            i.requestFullscreen();
+        } else if (i.webkitRequestFullscreen) {
+            i.webkitRequestFullscreen();
+        } else if (i.mozRequestFullScreen) {
+            i.mozRequestFullScreen();
+        } else if (i.msRequestFullscreen) {
+            i.msRequestFullscreen();
+        }
+
+        this.toggleFullScreenButton();
+    }
+
+    addFullScreenButton() {
+        let div = document.createElement('div');
+        div.innerHTML = '<div id="fullscreen">FullScreen</div>';
+        div.onclick = () => {
+            this.goFullScreen();
+        };
+        document.getElementById("gamepad").appendChild(div);
+    }
+
+    canFullScreen() {
+        return document.fullscreenEnabled ||
+            document.webkitFullscreenEnabled ||
+            document.mozFullScreenEnabled ||
+            document.msFullscreenEnabled;
     }
 
     onSpell(spell) {
@@ -19,7 +88,7 @@ export default class {
 
     onElementChange(id) {
         this.currentElement = id;
-        document.getElementsByTagName('body').item(0).setAttribute('class', id);
+        document.getElementById('gamepad').setAttribute('class', id);
         this.socket.send('message', {"type":"element","value":id});
     }
 
@@ -38,7 +107,6 @@ export default class {
     }
 
     loadComboSystem() {
-        console.log('load combo system');
 
         this.comboInputs = document.getElementsByClassName('combo-input');
         this.inputs = [];

@@ -37,12 +37,10 @@ export default class extends Phaser.Scene {
         });
 
         this.socket.on('sync', (data) => {
-            console.log('sync');
             this.scene.resume()
         });
 
         this.socket.on('leave', (data) => {
-            console.log('leave');
             this.scene.pause()
         });
     }

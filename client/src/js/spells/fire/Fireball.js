@@ -19,13 +19,9 @@ export default class extends Spell {
             hideOnComplete: false,
             repeat: -1
         });
-
-        console.log('fireball loaded');
     }
 
     execute() {
-        console.log('fireball !!!');
-
         let spell = this.initSpelll();
 
         spell.angle = this.calculateAngle(spell);
