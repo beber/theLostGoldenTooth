@@ -23,6 +23,12 @@ export default class extends Phaser.Scene {
         this.keys = null;
         this.boss = null;
         this.goblins = null;
+        this.sky = null;
+        this.clouds = null;
+        this.cloudsCoord = [{x: 350, y: 1600}, {x: 200, y: 400}, {x: 800, y: 500}, {x: 1200, y: 150}, {
+            x: 2000,
+            y: 1700
+        }]
 
         this.hudController = new HUDController();
         this.processors = {
@@ -56,6 +62,7 @@ export default class extends Phaser.Scene {
         for (let i in this.processors) {
             this.processors[i].preload();
         }
+        this.clouds = this.add.group();
         this.setAnimations();
     }
 
@@ -67,6 +74,9 @@ export default class extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.levelManager.map.tileWidth * this.levelManager.map.width, this.levelManager.map.tileHeight * this.levelManager.map.height)
         this.sky = this.add.sprite(0, 200, 'sky');
         this.sky.setScrollFactor(0);
+        for (let i = 0; i < this.cloudsCoord.length; i++) {
+            this.clouds.create(this.cloudsCoord[i].x, this.cloudsCoord[i].y, 'cloud').setScrollFactor(.2);
+        }
         // this.boss = new Boss({scene: this, x: 300, y: 3000});
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
 
