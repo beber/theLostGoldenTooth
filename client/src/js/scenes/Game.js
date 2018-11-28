@@ -28,9 +28,9 @@ export default class extends Phaser.Scene {
         this.cloudsCoord = [{x: 350, y: 1600}, {x: 200, y: 400}, {x: 800, y: 500}, {x: 1200, y: 150}, {
             x: 2000,
             y: 1700
-        }]
+        }];
 
-        this.hudController = new HUDController();
+        this.hudController = new HUDController(this);
         this.processors = {
             'element': new ElementProcessor(this),
             'spell': new SpellProcessor(this, spells.spells)
@@ -89,6 +89,9 @@ export default class extends Phaser.Scene {
 
         this.createGoblins();
         this.cameras.main.startFollow(this.wizard.entity, false, 0.05, 0.05);
+
+        this.hudController.load();
+
         this.scene.pause();
     }
 

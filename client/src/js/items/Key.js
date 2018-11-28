@@ -45,7 +45,7 @@ export default class extends Items {
     catchItem(item) {
         this.scene.physics.world.disable(item);
         item.setScrollFactor(0);
-        item.x =  50;
-        item.y =  50;
+        item.x = 50;
+        item.y = 90;
     }
 }

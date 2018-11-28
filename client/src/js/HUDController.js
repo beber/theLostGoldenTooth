@@ -1,18 +1,26 @@
+import Health from "./hud/bar/Health";
+import Mana from "./hud/bar/Mana";
+
 export default class {
-    constructor()
+    constructor(scene)
     {
-        this.outputs = {
-            'element': document.getElementById('hud-element')
+        this.scene = scene;
+        this.elements = {
+            "health": new Health(this.scene),
+            "mana": new Mana(this.scene)
         }
     }
 
-    update(element, value)
-    {
-        if (undefined === this.outputs[element] || null === this.outputs[element]) {
-
-            return;
+    load(){
+        for(let i in this.elements) {
+            this.elements[i].load();
         }
+    }
 
-        this.outputs[element].innerHTML = value;
+    update()
+    {
+        for(let i in this.elements) {
+            this.elements[i].update();
+        }
     }
 }
