@@ -65,6 +65,8 @@ export default class extends Phaser.Scene {
         // this.cameras.main.transparent = false;
         // this.cameras.main.setBackgroundColor('rgba(255, 0, 0, 0.5)');
         this.physics.world.setBounds(0, 0, this.levelManager.map.tileWidth * this.levelManager.map.width, this.levelManager.map.tileHeight * this.levelManager.map.height)
+        this.sky = this.add.sprite(0, 200, 'sky');
+        this.sky.setScrollFactor(0);
         // this.boss = new Boss({scene: this, x: 300, y: 3000});
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
 
