@@ -17,8 +17,8 @@ export default class {
     }
 
     execute(data) {
-        this.scene.hudController.update('element', data.value);
         this.scene.fairy.currentElement = data.value;
+        this.scene.hudController.elements.element.update();
         this.scene.fairy.entity.play('fairy-idle-' + this.scene.fairy.currentElement);
     }
 

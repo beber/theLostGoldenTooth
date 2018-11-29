@@ -35,7 +35,6 @@ export default class extends Items {
         return item;
     }
 
-
     _setCollisions(item) {
         for (let layer in this.scene.levelManager.physicsLayer) {
             this.scene.physics.add.collider(item, this.scene.levelManager.physicsLayer[layer]);

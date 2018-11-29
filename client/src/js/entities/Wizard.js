@@ -97,13 +97,13 @@ export default class Wizard {
     heal(health) {
         this.health += health;
         this.health = this.health > 100 ? 100 : this.health;
-        this.scene.hudController.update();
+        this.scene.hudController.elements.health.update();
     }
 
     power(mana) {
         this.mana += mana;
         this.mana = this.mana > 100 ? 100 : this.mana;
-        this.scene.hudController.update();
+        this.scene.hudController.elements.mana.update();
     }
 
     update() {
@@ -175,7 +175,7 @@ export default class Wizard {
         this.health -= damage;
         this.currentState = Wizard.STATE.hit;
 
-        this.scene.hudController.update();
+        this.scene.hudController.elements.health.update();
         if (this.health <= 0) {
             alert('GAME OVER');
             this.scene.scene.pause();

@@ -33,7 +33,7 @@ export default class {
     onInit(data)
     {
         if (data.code !== undefined) {
-            document.getElementById('link').innerHTML = "<a onclick=\"open(\'" + window.location.origin + "/mobile?code=" + data.code + "\', \'Popup\', \'scrollbars=1,resizable=1,height=350,width=770\'); return false;\">go to mobile</a>";
+            document.getElementById('link').innerHTML = "<a onclick=\"open(\'" + window.location.origin + "/mobile?code=" + data.code + "\', \'Popup\', \'scrollbars=1,resizable=1,height=350,width=770\'); return false;\">go to mobile " + data.code + "</a>";
         }
 
         this.processCallback('init', data);

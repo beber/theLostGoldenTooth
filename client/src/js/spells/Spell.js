@@ -12,7 +12,7 @@ export default class {
         this.launch();
 
         this.scene.wizard.mana -= this.cost;
-        this.scene.hudController.update();
+        this.scene.hudController.elements.mana.update();
     }
 
     can()
