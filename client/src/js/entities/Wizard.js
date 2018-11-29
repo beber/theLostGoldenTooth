@@ -37,7 +37,10 @@ export default class Wizard {
         this.entity.body.setCollideWorldBounds(true);
         this._setCollisions();
         this.setAnimationWizard();
-        this._listenInputsSpellsDev();
+
+        if (this.scene.game.config.physics.arcade.debug) {
+            this._listenInputsSpellsDev();
+        }
     }
 
     _setCollisions() {
@@ -94,11 +97,13 @@ export default class Wizard {
     heal(health) {
         this.health += health;
         this.health = this.health > 100 ? 100 : this.health;
+        this.scene.hudController.update();
     }
 
     power(mana) {
         this.mana += mana;
         this.mana = this.mana > 100 ? 100 : this.mana;
+        this.scene.hudController.update();
     }
 
     update() {
@@ -169,6 +174,12 @@ export default class Wizard {
     hit(damage) {
         this.health -= damage;
         this.currentState = Wizard.STATE.hit;
+
+        this.scene.hudController.update();
+        if (this.health <= 0) {
+            alert('GAME OVER');
+            this.scene.scene.pause();
+        }
         // this.entity.body.setVelocityX(this.xVelocity * this.direction * -2.5);
     }
 

@@ -1,3 +1,5 @@
+import * as Phaser from "phaser";
+
 export default class {
     constructor(scene) {
         this.scene = scene;
@@ -26,7 +28,12 @@ export default class {
 
     }
 
-    update() {
+    updateBar() {
+        let crop = new Phaser.Geom.Rectangle(0, 0, this.getWidth(), this.height);
+        this.fg.setCrop(crop);
+    }
 
+    getWidth() {
+        return this.width * (this.current / this.max);
     }
 }

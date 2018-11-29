@@ -3,6 +3,8 @@ import Spell from "../Spell";
 export default class extends Spell{
     constructor(scene) {
         super(scene);
+        
+        this.cost = 5;
     }
 
     preload() {
@@ -15,7 +17,7 @@ export default class extends Spell{
         });
     }
 
-    execute() {
+    launch() {
         let spell = this.scene.add.sprite(200, 3000, 'spell-break');
         this.scene.physics.world.enable(spell);
         this.scene.physics.add.overlap(spell, this.scene.levelManager.panels, function (spell, object) {
@@ -28,7 +30,7 @@ export default class extends Spell{
         spell.anims.play('wizard-break');
         spell.on('animationcomplete', () => {
             spell.destroy();
-        })
+        });
     }
 
     update() {

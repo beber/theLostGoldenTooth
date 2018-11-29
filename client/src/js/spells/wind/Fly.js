@@ -3,6 +3,8 @@ import Spell from '../Spell';
 export default class extends Spell {
     constructor(scene) {
         super(scene);
+        
+        this.cost = 10;
     }
 
     preload() {
@@ -14,7 +16,7 @@ export default class extends Spell {
         });
     }
 
-    execute() {
+    launch() {
         if (!this.scene.wizard.entity.body.onFloor()) {
             return;
         }
@@ -27,7 +29,8 @@ export default class extends Spell {
 
         setTimeout(() => {
             spell.destroy();
-        }, 500)
+        }, 500);
+
     }
 
     update() {

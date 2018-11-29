@@ -6,6 +6,7 @@ export default class extends Spell {
         super(scene);
 
         this.speed = 500;
+        this.cost = 5;
 
         this.entities = [];
     }
@@ -21,7 +22,7 @@ export default class extends Spell {
         });
     }
 
-    execute() {
+    launch() {
         let spell = this.initSpelll();
 
         spell.angle = this.calculateAngle(spell);

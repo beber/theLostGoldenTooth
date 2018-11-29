@@ -4,6 +4,7 @@ export default class extends Bar {
     constructor(scene) {
         super(scene);
 
+        this.max = this.current = this.scene.wizard.mana;
         this.fgColor = 0x0000ff;
         this.key = 'mana';
         this.width = 150;
@@ -12,5 +13,10 @@ export default class extends Bar {
             x: 20,
             y: 45
         }
+    }
+
+    update() {
+        this.current = this.scene.wizard.mana;
+        this.updateBar();
     }
 }

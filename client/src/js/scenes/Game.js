@@ -116,9 +116,7 @@ export default class extends Phaser.Scene {
             jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-            fly: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE),
-            fire: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO)
+            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
         };
     }
 

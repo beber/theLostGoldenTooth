@@ -5,13 +5,14 @@ export default class {
     constructor(scene)
     {
         this.scene = scene;
+    }
+
+    load(){
         this.elements = {
             "health": new Health(this.scene),
             "mana": new Mana(this.scene)
         }
-    }
 
-    load(){
         for(let i in this.elements) {
             this.elements[i].load();
         }
