@@ -96,13 +96,14 @@ export default class extends Phaser.Scene {
     }
 
     update() {
+        for (let i in this.processors) {
+            this.processors[i].update();
+        }
+
         // Update characters, map and others things
         this.wizard.update();
         this.fairy.update();
 
-        for (let i in this.processors) {
-            this.processors[i].update();
-        }
         for (let i = 0; i < this.goblins.getChildren().length; i++) {
             this.goblins.getChildren()[i].update()
         }

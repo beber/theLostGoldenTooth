@@ -17,6 +17,12 @@
             "class": "Fly",
             "element": "wind",
             "inputs": ["top","top"]
+        },
+        {
+            "name": "aura",
+            "class": "Aura",
+            "element": "water",
+            "inputs": ["left","right"]
         }
     ]
 }

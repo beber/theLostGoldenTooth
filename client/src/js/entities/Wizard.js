@@ -11,11 +11,11 @@ export default class Wizard {
         this.spawn = {
             x: 410,
             y: 3150
-        }
+        };
         this.currentState = Wizard.STATE.idle;
         this.direction = Wizard.DIRECTION.right;
         this.isAttacking = false;
-        this.attackDelay = 1000;
+        this.attackDelay = 600;
         this.lastAttackTime = Date.now();
     }
 
@@ -144,10 +144,14 @@ export default class Wizard {
             this.isAttacking = true;
             setTimeout(function () {
                 this.scene.processors.spell.spells.fireball.execute();
-            }.bind(this), 600);
+            }.bind(this), this.attackDelay);
         }.bind(this));
         this.scene.input.keyboard.on('keydown_THREE', function (event) {
             this.scene.processors.spell.spells.break.execute();
+        }.bind(this));
+
+        this.scene.input.keyboard.on('keydown_FOUR', function (event) {
+            this.scene.processors.spell.spells.aura.execute();
         }.bind(this));
     }
 
@@ -190,7 +194,9 @@ export default class Wizard {
             jumping: 2,
             falling: 3,
             hit: 4,
-            attacking: 5
+            attacking: 5,
+            spelling: 6,
+            aura: 7
         }
     }
 
@@ -216,6 +222,10 @@ export default class Wizard {
 
     get ISIDLE() {
         return this.currentState === Wizard.STATE.idle && this.isAttacking === false;
+    }
+
+    get HASAURA() {
+        return this.currentState === Wizard.STATE.aura;
     }
 
     get ISJUMPING() {
