@@ -34,6 +34,12 @@ export default class extends Phaser.Scene {
                 frameHeight: 83
             }
         );
+        this.load.spritesheet('spell-aura', 'assets/game/spells/water-aura.png',
+            {
+                frameWidth: 192,
+                frameHeight: 192
+            }
+        );
         this.load.spritesheet('items', 'assets/game/items/items.png',
             {
                 frameWidth: 32,

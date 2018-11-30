@@ -18,7 +18,7 @@ export default class extends Spell {
 
     launch() {
         if (!this.scene.wizard.entity.body.onFloor()) {
-            return;
+            return -1;
         }
 
         let spell = this.scene.add.sprite(0, 0, 'spell-fly');
@@ -30,7 +30,6 @@ export default class extends Spell {
         setTimeout(() => {
             spell.destroy();
         }, 500);
-
     }
 
     update() {
