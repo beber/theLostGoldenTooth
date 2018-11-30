@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry: {
-        app: [path.resolve(__dirname, 'client/src/js/main.js')],
+        app: [path.resolve(__dirname, 'client/src/js/main.js'), path.resolve(__dirname, 'client/src/js/mobile.js')],
         vendor: ['phaser'],
     },
     output: {

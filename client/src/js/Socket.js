@@ -1,6 +1,5 @@
 export default class {
-    constructor(data)
-    {
+    constructor(data) {
         this.data = data;
         this.callbacks = [];
         this.socket = io.connect(window.location.origin);
@@ -20,27 +19,24 @@ export default class {
         });
     }
 
-    on(eventName, callback)
-    {
+    on(eventName, callback) {
         this.callbacks[eventName] = callback;
     }
 
-    send(eventName, data)
-    {
+    send(eventName, data) {
         this.socket.emit(eventName, data);
     }
 
-    onInit(data)
-    {
+    onInit(data) {
         if (data.code !== undefined) {
-            document.getElementById('link').innerHTML = "<a onclick=\"open(\'" + window.location.origin + "/mobile?code=" + data.code + "\', \'Popup\', \'scrollbars=1,resizable=1,height=350,width=770\'); return false;\">go to mobile " + data.code + "</a>";
+            let mobileUrl = window.location.origin + "/mobile?code=" + data.code;
+            document.getElementById('link').innerHTML = "<button onclick=\"open(\'" + window.location.origin + "/mobile?code=" + data.code + "\', \'Popup\', \'scrollbars=1,resizable=1,height=350,width=770\'); return false;\">Click here to join the game on mobile (Code : " + data.code + ")</button><br>" + mobileUrl;
         }
 
         this.processCallback('init', data);
     }
 
-    processCallback(eventName, data)
-    {
+    processCallback(eventName, data) {
         if (undefined !== this.callbacks[eventName]) {
             this.callbacks[eventName](data);
         }
