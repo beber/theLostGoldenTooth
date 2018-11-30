@@ -7,19 +7,22 @@
     </head>
     <body>
         <div id="gamepad" class="earth">
+            <button type="button" id="fullscreen">Toggle FullScreen</button>
             <div id="inputs">
                 <div id="element-inputs">
-                    <div class="element-input" id="fire">Fire</div>
-                    <div class="element-input" id="earth">Earth</div>
-                    <div class="element-input" id="wind">Wind</div>
+                    <button class="element-input" id="fire">Fire</button>
+                    <button class="element-input" id="earth">Earth</button>
+                    <button class="element-input" id="wind">Wind</button>
                 </div>
                 <div id="combo-system">
                     <div id="combo-container"></div>
                     <div id="combo-inputs">
-                        <div class="combo-input" id="left"><-</div>
-                        <div class="combo-input" id="right">-></div>
-                        <div class="combo-input" id="top">î</div>
-                        <div class="combo-input" id="bottom">y</div>
+                        <button class="combo-input" id="left">&larr;</button>
+                        <div>
+                            <button class="combo-input" id="top">&uarr;</button>
+                            <button class="combo-input" id="bottom">&darr;</button>
+                        </div>
+                        <button class="combo-input" id="right">&rarr;</button>
                     </div>
                 </div>
             </div>
@@ -31,7 +34,7 @@
             };
         </script>
         <script src="/socket.io/socket.io.js"></script>
-        <script src="../dist/vendor.bundle.js"></script>
-        <script src="../dist/bundle.js"></script>
+        <script src="../dist/mobile.js"></script>
+        <script src="../dist/vendor.js"></script>
     </body>
 </html>

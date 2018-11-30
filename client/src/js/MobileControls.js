@@ -1,12 +1,12 @@
 export default class {
 
-    constructor(socket, spells)
-    {
+    constructor(socket, spells) {
         this.currentElement = 'wind';
         this.spells = spells;
         this.socket = socket;
         this.interval = 50;
         this.comboContainer = document.getElementById('combo-container');
+        this.fullScreenButton = document.getElementById('fullscreen');
         this.fullScreen = false;
 
         this.loadFullScreenMode();
@@ -24,12 +24,12 @@ export default class {
         let e = document.getElementById('fullscreen');
         if (!this.fullScreen) {
             this.fullScreen = true;
-            e.onclick = () => {
+            this.fullScreenButton.onclick = () => {
                 this.exitFullScreen();
             }
         } else {
             this.fullScreen = false;
-            e.onclick =  () => {
+            this.fullScreenButton.onclick = () => {
                 this.goFullScreen();
             }
         }
@@ -66,12 +66,10 @@ export default class {
     }
 
     addFullScreenButton() {
-        let div = document.createElement('div');
-        div.innerHTML = '<div id="fullscreen">FullScreen</div>';
-        div.onclick = () => {
+        this.fullScreenButton.classList.add('enable');
+        this.fullScreenButton.onclick = () => {
             this.goFullScreen();
         };
-        document.getElementById("gamepad").appendChild(div);
     }
 
     canFullScreen() {
@@ -89,13 +87,13 @@ export default class {
     onElementChange(id) {
         this.currentElement = id;
         document.getElementById('gamepad').setAttribute('class', id);
-        this.socket.send('message', {"type":"element","value":id});
+        this.socket.send('message', {"type": "element", "value": id});
     }
 
     loadElementSystem() {
         this.elementInputs = document.getElementsByClassName('element-input');
 
-        for (let i = 0;i< this.elementInputs.length;++i) {
+        for (let i = 0; i < this.elementInputs.length; ++i) {
             this.elementInputs.item(i).onclick = (e) => {
                 this.onElementChange(this.getInput(e).id);
             }
@@ -133,7 +131,7 @@ export default class {
 
         }, 1);
 
-        for (let i = 0;i< this.comboInputs.length;++i) {
+        for (let i = 0; i < this.comboInputs.length; ++i) {
             this.comboInputs.item(i).onclick = (e) => {
                 this.inputs.push(this.getInput(e).id);
                 this.inputInterval = this.interval
@@ -142,7 +140,7 @@ export default class {
     }
 
     getCombo() {
-        for(let i in this.spells) {
+        for (let i in this.spells) {
             if (this.spells[i].element === this.currentElement && this.spells[i].inputs.toString() === this.inputs.toString()) {
                 return this.spells[i];
             }
