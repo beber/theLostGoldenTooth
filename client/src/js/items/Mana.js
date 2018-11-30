@@ -44,6 +44,6 @@ export default class extends Items {
 
     catchItem(item) {
         item.destroy();
-        this.scene.wizard.power(10);
+        this.scene.wizard.power(20);
     }
 }

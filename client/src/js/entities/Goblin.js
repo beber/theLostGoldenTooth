@@ -41,6 +41,7 @@ export default class Goblin extends Phaser.GameObjects.Sprite {
     hit(damage) {
         this.health -= damage;
         if (this.health <= 0) {
+            this.scene.hudController.elements.monster_counter.update();
             this.destroy();
         }
     }

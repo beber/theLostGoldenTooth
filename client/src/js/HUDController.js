@@ -1,18 +1,26 @@
+import Health from "./hud/bar/Health";
+import Mana from "./hud/bar/Mana";
+import Element from "./hud/Element";
+import MonsterCounter from "./hud/MonsterCounter";
+import Timer from "./hud/Timer";
+
 export default class {
-    constructor()
+    constructor(scene)
     {
-        this.outputs = {
-            'element': document.getElementById('hud-element')
-        }
+        this.scene = scene;
     }
 
-    update(element, value)
-    {
-        if (undefined === this.outputs[element] || null === this.outputs[element]) {
+    load(){
+        this.elements = {
+            "health": new Health(this.scene),
+            "mana": new Mana(this.scene),
+            "element": new Element(this.scene),
+            "monster_counter": new MonsterCounter(this.scene),
+            "timer": new Timer(this.scene)
+        };
 
-            return;
+        for(let i in this.elements) {
+            this.elements[i].load();
         }
-
-        this.outputs[element].innerHTML = value;
     }
 }

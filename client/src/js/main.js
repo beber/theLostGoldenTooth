@@ -11,7 +11,14 @@ import config from './config';
 import spells from './spells/spells';
 
 const gameConfig = Object.assign(config, {
-    scene: [BootScene, GameScene]
+    scene: [BootScene, GameScene],
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+            gravity: {y: 1500}
+        }
+    }
 });
 
 class Game extends Phaser.Game {

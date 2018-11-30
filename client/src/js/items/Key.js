@@ -35,7 +35,6 @@ export default class extends Items {
         return item;
     }
 
-
     _setCollisions(item) {
         for (let layer in this.scene.levelManager.physicsLayer) {
             this.scene.physics.add.collider(item, this.scene.levelManager.physicsLayer[layer]);
@@ -45,7 +44,7 @@ export default class extends Items {
     catchItem(item) {
         this.scene.physics.world.disable(item);
         item.setScrollFactor(0);
-        item.x =  50;
-        item.y =  50;
+        item.x = 50;
+        item.y = 90;
     }
 }

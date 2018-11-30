@@ -9,6 +9,17 @@
             }
         },
         {
+            "name": "mana",
+            "class": "Mana",
+            "sprite": {
+                "start": 137,
+                "end": 137
+            },
+            "rate": {
+                "goblin": 0.5
+            }
+        },
+        {
             "name": "health",
             "class": "Health",
             "sprite": {
@@ -17,17 +28,6 @@
             },
             "rate": {
                 "goblin": 0.3
-            }
-        },
-        {
-            "name": "mana",
-            "class": "Mana",
-            "sprite": {
-                "start": 137,
-                "end": 137
-            },
-            "rate": {
-                "goblin": 0.4
             }
         }
     ]

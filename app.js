@@ -32,7 +32,7 @@ io.on('connection', function (socket) {
 		player.type = data.type;
 
 		if (data.code === undefined) {
-			let code = makeid(8);
+			let code = makeid(1);
 			player.code = code;
 
 			socket.emit('init', {code: code});
