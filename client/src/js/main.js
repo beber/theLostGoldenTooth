@@ -8,12 +8,14 @@ import config from './config';
 import spells from './spells/spells';
 
 const gameConfig = Object.assign(config, {
+    type: Phaser.CANVAS,
+    fps: 25,
     scene: [BootScene, GameScene],
     physics: {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: {y: 1500}
+            gravity: {y: 1600}
         }
     }
 });

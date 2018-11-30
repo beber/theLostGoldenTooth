@@ -11,11 +11,11 @@ export default class Wizard {
         this.spawn = {
             x: 410,
             y: 3150
-        }
+        };
         this.currentState = Wizard.STATE.idle;
         this.direction = Wizard.DIRECTION.right;
         this.isAttacking = false;
-        this.attackDelay = 1000;
+        this.attackDelay = 600;
         this.lastAttackTime = Date.now();
     }
 
@@ -144,7 +144,7 @@ export default class Wizard {
             this.isAttacking = true;
             setTimeout(function () {
                 this.scene.processors.spell.spells.fireball.execute();
-            }.bind(this), 600);
+            }.bind(this), this.attackDelay);
         }.bind(this));
         this.scene.input.keyboard.on('keydown_THREE', function (event) {
             this.scene.processors.spell.spells.break.execute();
