@@ -1,3 +1,5 @@
+import QRCode from 'qrcode';
+
 export default class {
     constructor(data) {
         this.data = data;
@@ -30,7 +32,13 @@ export default class {
     onInit(data) {
         if (data.code !== undefined) {
             let mobileUrl = window.location.origin + "/mobile?code=" + data.code;
-            document.getElementById('link').innerHTML = "<button onclick=\"open(\'" + window.location.origin + "/mobile?code=" + data.code + "\', \'Popup\', \'scrollbars=1,resizable=1,height=350,width=770\'); return false;\">Click here to join the game on mobile (Code : " + data.code + ")</button><br>" + mobileUrl;
+
+            let qr = document.getElementById('qr');
+
+            QRCode.toCanvas(qr, mobileUrl, (error) => {
+                if (error) console.error(error);
+                document.getElementById('link').innerHTML = "Scan the following QR code to start the game (If qr code doesn't work, follow this link on mobile: " + mobileUrl + ")";
+            });
         }
 
         this.processCallback('init', data);

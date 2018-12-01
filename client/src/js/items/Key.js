@@ -1,4 +1,5 @@
 import Items from "./Items";
+import Boss from "../entities/Boss";
 
 export default class extends Items {
     constructor(scene, config) {
@@ -42,9 +43,12 @@ export default class extends Items {
     }
 
     catchItem(item) {
-        this.scene.physics.world.disable(item);
-        item.setScrollFactor(0);
-        item.x = 50;
-        item.y = 90;
+        item.destroy();
+console.log(this.scene.wizard.entity.x, this.scene.wizard.entity.y);
+        this.scene.boss = new Boss({scene: this.scene, x: 2800, y: 1500});
+        // this.scene.physics.world.disable(item);
+        // item.setScrollFactor(0);
+        // item.x = 50;
+        // item.y = 90;
     }
 }
