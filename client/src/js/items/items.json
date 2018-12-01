@@ -29,6 +29,17 @@
             "rate": {
                 "goblin": 0.3
             }
+        },
+        {
+            "name": "jewel",
+            "class": "Jewel",
+            "sprite": {
+                "start": 255,
+                "end": 255
+            },
+            "rate": {
+                "boss": 1
+            }
         }
     ]
 }

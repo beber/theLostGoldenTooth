@@ -27,6 +27,7 @@ export default class extends Phaser.Scene {
         this.goblins = null;
         this.sky = null;
         this.clouds = null;
+        this.sync = false;
         this.cloudsCoord = [{x: 350, y: 1600}, {x: 200, y: 400}, {x: 800, y: 500}, {x: 1200, y: 150}, {
             x: 2000,
             y: 1700
@@ -45,11 +46,13 @@ export default class extends Phaser.Scene {
         });
 
         this.socket.on('sync', (data) => {
-            this.scene.resume()
+            this.scene.resume();
+            this.sync = true;
         });
 
         this.socket.on('leave', (data) => {
-            this.scene.pause()
+            this.scene.pause();
+            this.sync = false;
         });
     }
 
@@ -94,7 +97,9 @@ export default class extends Phaser.Scene {
 
         this.hudController.load();
 
-        this.scene.pause();
+        if (!this.sync) {
+            //this.scene.pause();
+        }
     }
 
     update() {
@@ -110,7 +115,7 @@ export default class extends Phaser.Scene {
             this.goblins.getChildren()[i].update()
         }
 
-        if (this.boss !== null) {
+        if (this.boss !== null && this.boss !== undefined) {
             this.boss.update();
         }
     }

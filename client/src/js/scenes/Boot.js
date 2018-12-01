@@ -52,6 +52,7 @@ export default class extends Phaser.Scene {
                 frameHeight: 32
             }
         );
+        this.load.image('retry', 'assets/game/buttons/retry.png');
         this.load.image('tiles', 'assets/game/levels/tiles_spritesheet.png');
         this.load.image('tilestest', 'assets/game/levels/spritessheets/test-extruded.png');
         this.load.image('panel', 'assets/game/levels/panel.png');
@@ -66,7 +67,7 @@ export default class extends Phaser.Scene {
         let title = this.add.text(400, 300, 'The Lost Golden Tooth', {
             fontSize: '60px',
             fontFamily: 'Arial',
-            color: '#ffffff',
+            color: '#ffffff'
         });
         title.setOrigin(0.5);
         // setTimeout(() => {
