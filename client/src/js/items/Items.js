@@ -2,7 +2,6 @@ export default class {
     constructor(scene, config)
     {
         this.scene = scene;
-
         if (undefined !== config.rate) {
             this.rate = config.rate;
         }

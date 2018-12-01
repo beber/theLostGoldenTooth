@@ -2,18 +2,18 @@ import '../scss/page/main.scss';
 import Phaser from 'phaser';
 import BootScene from './scenes/Boot'
 import GameScene from './scenes/Game'
-import Socket from './Socket'
 import config from './config';
-import spells from './spells/spells';
+import Loose from "./scenes/Loose";
+import Win from "./scenes/Win";
 
 const gameConfig = Object.assign(config, {
     type: Phaser.CANVAS,
     fps: 25,
-    scene: [BootScene, GameScene],
+    scene: [BootScene, GameScene, Loose, Win],
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: {y: 1600}
         }
     }

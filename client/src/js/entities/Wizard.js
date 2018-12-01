@@ -181,8 +181,7 @@ export default class Wizard {
 
         this.scene.hudController.elements.health.update();
         if (this.health <= 0) {
-            alert('GAME OVER');
-            this.scene.scene.pause();
+            this.scene.levelManager.loose();
         }
         // this.entity.body.setVelocityX(this.xVelocity * this.direction * -2.5);
     }

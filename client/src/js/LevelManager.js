@@ -73,4 +73,14 @@ export default class LevelManager {
     getGoblinsSpawns() {
         return this.map.getObjectLayer('EnnemiSpawn').objects;
     }
+
+    loose() {
+        this.scene.scene.pause();
+        this.scene.scene.launch('Loose');
+    }
+
+    win() {
+        this.scene.scene.pause();
+        this.scene.scene.launch('Win');
+    }
 }
