@@ -98,7 +98,7 @@ export default class extends Phaser.Scene {
         this.hudController.load();
 
         if (!this.sync) {
-            //this.scene.pause();
+            this.scene.pause();
         }
     }
 
