@@ -74,6 +74,12 @@ export default class extends Spell {
             spell.destroy();
         });
 
+        if (this.scene.boss !== null) {
+            this.scene.physics.add.collider(spell, this.scene.boss, (fireball, goblin) => {
+                goblin.hit(spell.damage);
+                spell.destroy();
+            });
+        }
     }
 
     calculateAngle(spell) {

@@ -4,25 +4,29 @@
             "name": "fireball",
             "class": "Fireball",
             "element": "fire",
-            "inputs": ["right", "left"]
+            "inputs": ["right", "left"],
+            "legend": "Spell for killing goblins. Combo: &rarr; &larr;"
         },
         {
             "name": "break",
             "class": "Break",
             "element": "earth",
-            "inputs": ["bottom","bottom"]
+            "inputs": ["bottom","bottom"],
+            "legend": "Spell for breaking walls. Combo: &darr; &darr;"
         },
         {
             "name": "fly",
             "class": "Fly",
             "element": "wind",
-            "inputs": ["top","top"]
+            "inputs": ["top","top"],
+            "legend": "Spell for jumping on platforms. Combo: &uarr; &uarr;"
         },
         {
             "name": "aura",
             "class": "Aura",
             "element": "water",
-            "inputs": ["left","right"]
+            "inputs": ["left","right"],
+            "legend": "Spell for recovering mana. Combo: &larr; &rarr;"
         }
     ]
 }

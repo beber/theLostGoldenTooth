@@ -1,11 +1,11 @@
 export default class {
 
     constructor(socket, spells) {
-        this.currentElement = 'wind';
+        this.currentElement = 'earth';
         this.spells = spells;
         this.socket = socket;
         this.interval = 50;
-        this.comboContainer = document.getElementById('combo-container');
+        this.spellListContainer = document.getElementById('spell-list');
         this.fullScreenButton = document.getElementById('fullscreen');
         this.fullScreen = false;
 
@@ -73,14 +73,20 @@ export default class {
     }
 
     canFullScreen() {
-        return document.fullscreenEnabled ||
-            document.webkitFullscreenEnabled ||
-            document.mozFullScreenEnabled ||
-            document.msFullscreenEnabled;
+        return document.fullscreenEnabled
+            || document.webkitFullscreenEnabled
+            || document.mozFullScreenEnabled
+            || document.msFullscreenEnabled
+        ;
     }
 
     onSpell(spell) {
-        this.comboContainer.innerHTML = spell.inputs.toString();
+        let spellDescription = document.getElementById('legend-' + spell.name);
+        spellDescription.className = 'active';
+        setTimeout(() => {
+            spellDescription.className = '';
+        }, 200);
+
         this.socket.send('message', {"type": "spell", "value": spell});
     }
 
@@ -105,6 +111,7 @@ export default class {
     }
 
     loadComboSystem() {
+        this.loadSpells();
 
         this.comboInputs = document.getElementsByClassName('combo-input');
         this.inputs = [];
@@ -137,6 +144,19 @@ export default class {
                 this.inputInterval = this.interval
             }
         }
+    }
+
+    loadSpells() {
+        for (let i in this.spells) {
+            this.addSpell(this.spells[i]);
+        }
+    }
+
+    addSpell(spell) {
+        let spellDescription = document.createElement('li');
+        spellDescription.id = 'legend-' + spell.name;
+        spellDescription.innerHTML = spell.name + ' (' + spell.element + ') : ' + spell.legend;
+        this.spellListContainer.append(spellDescription);
     }
 
     getCombo() {

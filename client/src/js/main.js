@@ -1,6 +1,5 @@
 import '../scss/page/main.scss';
 import Phaser from 'phaser';
-
 import BootScene from './scenes/Boot'
 import GameScene from './scenes/Game'
 import Socket from './Socket'

@@ -2,6 +2,8 @@ import Phaser from 'phaser'
 import Wizard from '../entities/Wizard';
 import Fairy from '../entities/Fairy';
 import Goblin from '../entities/Goblin';
+import Boss from "../entities/Boss";
+
 import LevelManager from "../LevelManager";
 
 import spells from '../spells/spells';
@@ -77,11 +79,11 @@ export default class extends Phaser.Scene {
         for (let i = 0; i < this.cloudsCoord.length; i++) {
             this.clouds.create(this.cloudsCoord[i].x, this.cloudsCoord[i].y, 'cloud').setScrollFactor(.2);
         }
-        // this.boss = new Boss({scene: this, x: 300, y: 3000});
+
         this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
 
         this.levelManager.loadLevel();
-        this.wizard.setSpawn(this.levelManager.getWizardSpawn().x, this.levelManager.getWizardSpawn().y)
+        this.wizard.setSpawn(this.levelManager.getWizardSpawn().x, this.levelManager.getWizardSpawn().y);
         this.wizard.create();
 
         this.fairy.setSpawn(this.wizard.spawn);
@@ -107,7 +109,10 @@ export default class extends Phaser.Scene {
         for (let i = 0; i < this.goblins.getChildren().length; i++) {
             this.goblins.getChildren()[i].update()
         }
-        // this.boss.update();
+
+        if (this.boss !== null) {
+            this.boss.update();
+        }
     }
 
     setControls() {
@@ -116,8 +121,8 @@ export default class extends Phaser.Scene {
         this.keys = {
             jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z),
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
-            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
         };
     }
 
