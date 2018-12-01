@@ -5,28 +5,28 @@
             "class": "Fireball",
             "element": "fire",
             "inputs": ["right", "left"],
-            "legend": "Spell for killing goblins. Combo: &rarr; &larr;"
+            "legend": "Spell for killing goblins. <b>Combo:</b>&nbsp;&rarr;&nbsp;&larr;"
         },
         {
             "name": "break",
             "class": "Break",
             "element": "earth",
             "inputs": ["bottom","bottom"],
-            "legend": "Spell for breaking walls. Combo: &darr; &darr;"
+            "legend": "Spell for breaking walls. <b>Combo:</b>&nbsp;&darr;&nbsp;&darr;"
         },
         {
             "name": "fly",
             "class": "Fly",
             "element": "wind",
             "inputs": ["top","top"],
-            "legend": "Spell for jumping on platforms. Combo: &uarr; &uarr;"
+            "legend": "Spell for jumping on platforms. <b>Combo:</b>&nbsp;&uarr;&nbsp;&uarr;"
         },
         {
             "name": "aura",
             "class": "Aura",
             "element": "water",
             "inputs": ["left","right"],
-            "legend": "Spell for recovering mana. Combo: &larr; &rarr;"
+            "legend": "Spell for recovering mana. <b>Combo:</b>&nbsp;&larr;&nbsp;&rarr;"
         }
     ]
 }
