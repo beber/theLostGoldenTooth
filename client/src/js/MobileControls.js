@@ -155,7 +155,7 @@ export default class {
     addSpell(spell) {
         let spellDescription = document.createElement('li');
         spellDescription.id = 'legend-' + spell.name;
-        spellDescription.innerHTML = spell.name + ' (' + spell.element + ') : ' + spell.legend;
+        spellDescription.innerHTML = '<b>' + spell.name + ' (' + spell.element + '):</b> ' + spell.legend;
         this.spellListContainer.append(spellDescription);
     }
 

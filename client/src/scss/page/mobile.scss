@@ -52,7 +52,7 @@ button {
 
   .element-input {
     background-color: #DDD;
-    font-size: 22px;
+    font-size: 18px;
     padding: .4em 1em;
     border: 1px solid transparent;
     transition: box-shadow .1s linear, border-color .1s linear;
@@ -100,7 +100,7 @@ button {
     //height: 100%;
     //float: right;
     //width: 79%;
-    margin-top: 100px;
+    margin-top: 50px;
   }
 
   #combo-container {
@@ -118,7 +118,7 @@ button {
 
       li {
         padding: 5px;
-        font-size: 18px;
+        font-size: 14px;
         transition-property: background-color;
         transition-duration: 0.1s;
         transition-timing-function: linear;
